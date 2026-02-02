@@ -1768,7 +1768,7 @@
         <!-- Left Column: Project Image or Figma Prototype when in Key Features / Approach -->
         <div class="project-left-column" id="project-left-column">
             <img src="../images/projects/project-2.jpg" alt="Smart BundleUp - Schneider Electric">
-            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - Smart BundleUp" src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2F0tg4JhNTsDFvwfBOzTIZ7J%2FPortfolio-2023%3Fpage-id%3D72%253A753%26node-id%3D72-872%26viewport%3D393%252C238%252C0.05%26t%3DWFb1Fu8uegSNiBi7-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A754%26show-proto-sidebar%3D1" allowfullscreen></iframe>
+            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - Smart BundleUp" data-src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2F0tg4JhNTsDFvwfBOzTIZ7J%2FPortfolio-2023%3Fpage-id%3D72%253A753%26node-id%3D72-872%26viewport%3D393%252C238%252C0.05%26t%3DWFb1Fu8uegSNiBi7-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A754%26show-proto-sidebar%3D1" allowfullscreen></iframe>
         </div>
 
         <!-- Right Column: Project Content -->
@@ -2262,17 +2262,20 @@
             const figmaPrototype = document.getElementById('key-features-figma');
 
             if (keyFeaturesSection && approachSection && impactSection && leftColumn && figmaPrototype) {
-                // Show Figma prototype on page load
-                leftColumn.classList.add('show-figma');
-
                 // Track visibility of Key Features, Approach, and Impact (viewport-based)
                 let keyFeaturesVisible = false;
                 let approachVisible = false;
                 let impactVisible = false;
+                let figmaLoaded = false;
 
                 const updatePrototypeVisibility = () => {
                     if (keyFeaturesVisible || approachVisible || impactVisible) {
                         leftColumn.classList.add('show-figma');
+                        // Lazy-load Figma iframe when first shown (fixes embed on Netlify)
+                        if (!figmaLoaded && figmaPrototype.dataset.src) {
+                            figmaPrototype.src = figmaPrototype.dataset.src;
+                            figmaLoaded = true;
+                        }
                     } else {
                         leftColumn.classList.remove('show-figma');
                     }

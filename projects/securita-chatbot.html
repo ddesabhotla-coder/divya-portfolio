@@ -1617,7 +1617,7 @@
         <!-- Left Column: Project Image -->
         <div class="project-left-column">
             <img src="../images/projects/security-hq.jpg" alt="SecuRita ChatBot">
-            <iframe id="key-features-figma" class="figma-prototype" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FMpC6rmZtciYuLvbGBMZZPy%2FCapstone-Final-Prototype%3Fpage-id%3D0%253A1%26node-id%3D172-8314%26viewport%3D7293%252C-3375%252C0.75%26t%3DdJGnQWrcIOHnOqQR-1%26scaling%3Dmin-zoom%26content-scaling%3Dfixed%26starting-point-node-id%3D172%253A8314%26show-proto-sidebar%3D1" allowfullscreen></iframe>
+            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - SecuRita ChatBot" data-src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FMpC6rmZtciYuLvbGBMZZPy%2FCapstone-Final-Prototype%3Fpage-id%3D0%253A1%26node-id%3D172-8314%26viewport%3D7293%252C-3375%252C0.75%26t%3DdJGnQWrcIOHnOqQR-1%26scaling%3Dmin-zoom%26content-scaling%3Dfixed%26starting-point-node-id%3D172%253A8314%26show-proto-sidebar%3D1" allowfullscreen></iframe>
         </div>
 
         <!-- Right Column: Project Content -->
@@ -2076,16 +2076,19 @@
             const figmaPrototype = document.getElementById('key-features-figma');
 
             if (keyFeaturesSection && approachSection && leftColumn && figmaPrototype) {
-                // Show Figma prototype on page load
-                leftColumn.classList.add('show-figma');
-
                 // Track visibility of both sections
                 let keyFeaturesVisible = false;
                 let approachVisible = false;
+                let figmaLoaded = false;
 
                 const updatePrototypeVisibility = () => {
                     if (keyFeaturesVisible || approachVisible) {
                         leftColumn.classList.add('show-figma');
+                        // Lazy-load Figma iframe when first shown (fixes embed on Netlify)
+                        if (!figmaLoaded && figmaPrototype.dataset.src) {
+                            figmaPrototype.src = figmaPrototype.dataset.src;
+                            figmaLoaded = true;
+                        }
                     } else {
                         leftColumn.classList.remove('show-figma');
                     }

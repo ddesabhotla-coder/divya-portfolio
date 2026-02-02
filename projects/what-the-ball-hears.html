@@ -1590,7 +1590,7 @@
         <!-- Left Column: Project Image or Figma Prototype when in Key Features / Approach / Impact -->
         <div class="project-left-column" id="project-left-column">
             <img src="../images/projects/project-3.jpg" alt="What the ball hears">
-            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - What the ball hears" src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjJvMvGYxjpfnjljjdhQj7F%2FAT-T-Hackathon%3Fpage-id%3D72%253A2287%26node-id%3D72-4308%26p%3Df%26viewport%3D713%252C-97%252C0.36%26t%3DehOuowFCoBKCKDEw-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A4308%26show-proto-sidebar%3D1" allowfullscreen></iframe>
+            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - What the ball hears" data-src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjJvMvGYxjpfnjljjdhQj7F%2FAT-T-Hackathon%3Fpage-id%3D72%253A2287%26node-id%3D72-4308%26p%3Df%26viewport%3D713%252C-97%252C0.36%26t%3DehOuowFCoBKCKDEw-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A4308%26show-proto-sidebar%3D1" allowfullscreen></iframe>
         </div>
 
         <!-- Right Column: Project Content -->
@@ -2040,10 +2040,16 @@
                 let keyFeaturesVisible = false;
                 let approachVisible = false;
                 let impactVisible = false;
+                let figmaLoaded = false;
 
                 const updatePrototypeVisibility = () => {
                     if (keyFeaturesVisible || approachVisible || impactVisible) {
                         leftColumn.classList.add('show-figma');
+                        // Lazy-load Figma iframe when first shown (fixes embed on Netlify)
+                        if (!figmaLoaded && figmaPrototype.dataset.src) {
+                            figmaPrototype.src = figmaPrototype.dataset.src;
+                            figmaLoaded = true;
+                        }
                     } else {
                         leftColumn.classList.remove('show-figma');
                     }
