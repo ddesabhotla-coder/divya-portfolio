@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <svg width="0" height="0" style="position: absolute;">
+        <defs>
+            <clipPath id="leftColumnShape" clipPathUnits="objectBoundingBox">
+                <path d="M1 0.0904C1 0.0821 0.993 0.0755 0.984 0.0755H0.699C0.69 0.0755 0.683 0.0688 0.683 0.0606V0.0149C0.683 0.0067 0.676 0 0.667 0H0.016C0.0072 0 0 0.0067 0 0.0149V0.985C0 0.9933 0.0072 1 0.016 1H0.984C0.993 1 1 0.9933 1 0.985V0.0904Z" transform="rotate(180 0.5 0.5)"/>
+            </clipPath>
+        </defs>
+    </svg>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Column: Image Slider / Single Photo -->
+        <div class="left-column">
+            <div class="slider-container" id="sliderContainer">
+                <div class="slider-wrapper">
+                    <div class="slide active project-slide" data-project="0">
+                        <img src="images/projects/project-1.jpg" alt="Project 1" id="profile-photo">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Designed and delivered cross-product UX solutions that turn predictive insights into meaningful, actionable experiences for Underwriters and Claim Adjusters
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slide project-slide" data-project="1">
+                        <img src="images/projects/Compare.jpg" alt="GW Compare: Platform Modernization">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Modernized a legacy analytics platform to improve user experience and increase adoption across enterprise insurance workflows.</p>
+                        </div>
+                    </div>
+                    <div class="slide project-slide" data-project="2">
+                        <img src="images/projects/security-hq.jpg" alt="Security HQ Project">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Advanced conversational interface to optimize business processes in the CX domain, leading to a 600% reduction in customer support requests.</p>
+                        </div>
+                    </div>
+                    <div class="slide project-slide" data-project="3">
+                        <img src="images/projects/project-2.jpg" alt="Project 2">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Positioning Schneider Electric in the Smart and Sustainable home market navigating the tricky balance of meeting the diverse needs of builders, homeowners, and busines.</p>
+                        </div>
+                    </div>
+                    <div class="slide project-slide" data-project="4">
+                        <img src="images/projects/project-3.jpg" alt="Project 3">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Leveraged 5G and spatial audio to create immersive basketball experiences, bringing the game's energy to life for visually impaired fans.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-next-btn" id="sliderNextBtn" aria-label="Next slide">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="slider-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+            </div>
+            <div class="single-photo-container" id="singlePhotoContainer" style="display: none;">
+                <div class="featured-badge-projects" id="featuredBadge" style="display: none;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="7.5" fill="none" stroke="white" stroke-width="1"/>
+                        <path d="M8 2.5 L9.236 5.764 L12.5 7 L9.236 8.236 L8 11.5 L6.764 8.236 L3.5 7 L6.764 5.764 Z" fill="none" stroke="white" stroke-width="1.2" stroke-linejoin="miter" stroke-linecap="square"/>
+                    </svg>
+                    <span>Featured</span>
+                </div>
+                <img src="images/about-photo.jpg" alt="About Photo" id="singlePhotoImage">
+                <div class="slide-overlay" id="singlePhotoOverlay" style="display: none;">
+                    <p class="slide-hover-description" id="singlePhotoDescription"></p>
+                </div>
+            </div>
+            <div class="projects-slider-container" id="projectsSliderContainer" style="display: none;">
+                <div class="projects-slider-wrapper">
+                    <div class="projects-slide active" data-project-index="0" data-project-image="images/projects/project-1.jpg" data-project-description="Designed and delivered cross-product UX solutions that turn predictive insights into meaningful, actionable experiences for Underwriters and Claim Adjusters" data-project-featured="true">
+                        <img src="images/projects/project-1.jpg" alt="Insightful UX">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Designed and delivered cross-product UX solutions that turn predictive insights into meaningful, actionable experiences for Underwriters and Claim Adjusters</p>
+                        </div>
+                    </div>
+                    <div class="projects-slide" data-project-index="1" data-project-image="images/projects/Compare.jpg" data-project-description="Modernized a legacy analytics platform to improve user experience and increase adoption across enterprise insurance workflows." data-project-featured="false">
+                        <img src="images/projects/Compare.jpg" alt="GW Compare: Platform Modernization">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Modernized a legacy analytics platform to improve user experience and increase adoption across enterprise insurance workflows.</p>
+                        </div>
+                    </div>
+                    <div class="projects-slide" data-project-index="2" data-project-image="images/projects/security-hq.jpg" data-project-description="Advanced conversational interface to optimize business processes in the CX domain, leading to a 600% reduction in customer support requests." data-project-featured="false">
+                        <img src="images/projects/security-hq.jpg" alt="SecuRita Chatbot">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Advanced conversational interface to optimize business processes in the CX domain, leading to a 600% reduction in customer support requests.</p>
+                        </div>
+                    </div>
+                    <div class="projects-slide" data-project-index="3" data-project-image="images/projects/project-2.jpg" data-project-description="Positioning Schneider Electric in the Smart and Sustainable home market navigating the tricky balance of meeting the diverse needs of builders, homeowners, and busines." data-project-featured="false">
+                        <img src="images/projects/project-2.jpg" alt="Smart BundleUp">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Positioning Schneider Electric in the Smart and Sustainable home market navigating the tricky balance of meeting the diverse needs of builders, homeowners, and busines.</p>
+                        </div>
+                    </div>
+                    <div class="projects-slide" data-project-index="4" data-project-image="images/projects/project-3.jpg" data-project-description="Leveraged 5G and spatial audio to create immersive basketball experiences, bringing the game's energy to life for visually impaired fans." data-project-featured="false">
+                        <img src="images/projects/project-3.jpg" alt="What the ball hears">
+                        <div class="slide-overlay">
+                            <p class="slide-hover-description">Leveraged 5G and spatial audio to create immersive basketball experiences, bringing the game's energy to life for visually impaired fans.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-badge-projects" id="projectsFeaturedBadge" style="display: none;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="8" cy="8" r="7.5" fill="none" stroke="white" stroke-width="1"/>
+                        <path d="M8 2.5 L9.236 5.764 L12.5 7 L9.236 8.236 L8 11.5 L6.764 8.236 L3.5 7 L6.764 5.764 Z" fill="none" stroke="white" stroke-width="1.2" stroke-linejoin="miter" stroke-linecap="square"/>
+                    </svg>
+                    <span>Featured</span>
+                </div>
+                <div class="slider-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                    <span class="indicator" data-slide="3"></span>
+                </div>
+            </div>
+            <div class="testimonial-slider-container" id="testimonialSliderContainer" style="display: none;">
+                <div class="testimonial-slider-wrapper">
+                    <div class="testimonial-slide active" data-testimonial="0">
+                        <img src="images/testimonials/jennifer-fisher.jpg" alt="Jennifer Fisher">
+                    </div>
+                    <div class="testimonial-slide" data-testimonial="1">
+                        <img src="images/testimonials/priyanjali-mittal.jpg" alt="Priyanjali Mittal">
+                    </div>
+                    <div class="testimonial-slide" data-testimonial="2">
+                        <img src="images/testimonials/andrii-khmelkov.jpg" alt="Andrii Khmelkov">
+                    </div>
+                </div>
+                <button class="slider-next-btn" id="testimonialSliderNextBtn" aria-label="Next testimonial">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="slider-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                </div>
+            </div>
+        </div>
+            <div class="selected-projects-label">Projects</div>
+
+        <!-- Right Column: Content -->
+        <div class="right-column">
+            <!-- Navigation Tabs -->
+            <nav class="tabs">
+                <button class="tab-button active" data-tab="home">Home</button>
+                <button class="tab-button" data-tab="about">About</button>
+                <button class="tab-button" data-tab="projects">Projects</button>
+                <button class="tab-button" data-tab="testimonials">Testimonials</button>
+                <button class="tab-button" data-tab="resume">Resume</button>
+            </nav>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Home Tab -->
+                <div class="tab-pane active" id="home">
+                    <div class="content-section">
+                        <div class="availability-badge">
+                            <span class="badge-dot"></span>
+                            <span class="badge-text">Now Available</span>
+                        </div>
+                        <h1 class="headline">
+                            <span class="headline-main">Hi, I'm Divya! 👋
+                            <br>Productivity Engineer Turned UX Designer</span>
+                        </h1>
+                        <p class="description">
+                            Translating complex technical workflows into intuitive design — building products that perform and resonate. <br/>
+
+                            <br/>Currently working on providing Seamless Analytics Integration for Smarter Insurance Solutions at Guidewire Software.
+                        </p>
+                        <button class="cta-button" id="viewProjectsBtn">View projects</button>
+                    </div>
+                    
+                    <!-- Company Logos Section -->
+                    <div class="companies-section">
+                        <div class="companies-wrapper">
+                            <div class="companies-scroll companies-scroll-1">
+                                <div class="company-logo">
+                                    <img src="images/companies/company1.png" alt="Company 1">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company2.png" alt="Company 2">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company3.png" alt="Company 3">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company4.png" alt="Company 4">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company5.png" alt="Company 5">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company6.png" alt="Company 6">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company7.png" alt="Company 7">
+                                </div>
+                            </div>
+                            <div class="companies-scroll companies-scroll-2" aria-hidden="true">
+                                <div class="company-logo">
+                                    <img src="images/companies/company1.png" alt="Company 1">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company2.png" alt="Company 2">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company3.png" alt="Company 3">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company4.png" alt="Company 4">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company5.png" alt="Company 5">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company6.png" alt="Company 6">
+                                </div>
+                                <div class="company-logo">
+                                    <img src="images/companies/company7.png" alt="Company 7">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Tab -->
+                <div class="tab-pane" id="about">
+                    <div class="about-content">
+                        <!-- A Little About Me -->
+                        <section class="about-section">
+                            <h2 class="about-heading">A Little About Me</h2>
+                            <p class="about-text">
+                               Hi! I am Divya, UX Designer currently based in San Jose, CA. I'm a developer-turned-designer with a passion for <span class="highlight">problem-solving</span> through both code and design. Currently working as a UX Designer at Guidewire Software, where I focus on leveraging user experience principles to design solutions that enhance clarity, efficiency, and effectiveness for users navigating <span class="highlight">complex insurance workflows for Enterprise Data-Driven Products at Guidewire</span>.
+                            </p>
+                        </section>
+
+                        <!-- My Design Values -->
+                        <section class="about-section">
+                            <h2 class="about-heading">My Design Values</h2>
+                            <div class="design-values">
+                                <div class="design-value-item">
+                                    <div class="value-header">
+                                        <div class="value-title-group">
+                                            <span class="value-number">01</span>
+                                            <span class="value-text">Solve, Do Not Bandaid</span>
+                                        </div>
+                                        <svg class="value-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="value-content">
+                                        <p class="value-description">Emphasizing that addressing issues thoroughly and thoughtfully is ultimately more efficient than relying on quick fixes, which may accumulate UX debt over time</p>
+                                    </div>
+                                    <div class="value-divider"></div>
+                                </div>
+                                <div class="design-value-item">
+                                    <div class="value-header">
+                                        <div class="value-title-group">
+                                            <span class="value-number">02</span>
+                                            <span class="value-text">Balancing All Needs</span>
+                                        </div>
+                                        <svg class="value-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="value-content">
+                                        <p class="value-description">Creating product designs that align with the needs of three essential entities: your company, the business clients you sell products to, and the end users who interact with the product.</p>
+                                    </div>
+                                    <div class="value-divider"></div>
+                                </div>
+                                <div class="design-value-item">
+                                    <div class="value-header">
+                                        <div class="value-title-group">
+                                            <span class="value-number">03</span>
+                                            <span class="value-text">Autonomy in Design</span>
+                                        </div>
+                                        <svg class="value-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="value-content">
+                                        <p class="value-description">Empowering users to make informed decisions by providing assistance and guidance to users in a way that doesn't disrupt their natural workflow or force them into decisions.</p>
+                                    </div>
+                                    <div class="value-divider"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Outside of work -->
+                        <section class="about-section">
+                            <h2 class="about-heading">Outside of work, I enjoy</h2>
+                            <div class="happiness-images">
+                                <div class="happiness-image">
+                                    <img src="images/happiness/concert.jpg" alt="Concert">
+                                </div>
+                                <div class="happiness-image">
+                                    <img src="images/happiness/travel.jpg" alt="Travel">
+                                </div>
+                                <div class="happiness-image">
+                                    <img src="images/happiness/food.jpg" alt="Food">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Projects Tab -->
+                <div class="tab-pane" id="projects">
+                    <div class="projects-header">
+                        <h2 class="projects-heading">Featured work</h2>
+                        <p class="projects-tagline">Explore my design journey through selected case studies.</p>
+                    </div>
+                    <div class="projects-scroll-container">
+                        <div class="project-row" data-project-index="0" data-project-image="images/projects/project-1.jpg" data-project-description="Designed and delivered cross-product UX solutions that turn predictive insights into meaningful, actionable experiences for Underwriters and Claim Adjusters" data-project-featured="true">
+                            <div class="project-name">
+                                <span>Insightful UX</span>
+                                <svg class="project-star" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="8" cy="8" r="7.5" fill="#B8D4E8" stroke="#8BB5D6" stroke-width="0.5"/>
+                                    <path d="M8 2.5 L9.236 5.764 L12.5 7 L9.236 8.236 L8 11.5 L6.764 8.236 L3.5 7 L6.764 5.764 Z" fill="none" stroke="#8BB5D6" stroke-width="1.2" stroke-linejoin="miter" stroke-linecap="square"/>
+                                </svg>
+                            </div>
+                            <div class="project-type">Enterprise UX<span class="nda-tag">NDA</span></div>
+                            <div class="project-year">2024</div>
+                            <div class="project-arrow">→</div>
+                        </div>
+                        <div class="project-row" data-project-index="1" data-project-image="images/projects/Compare.jpg" data-project-description="Modernized a legacy analytics platform to improve user experience and increase adoption across enterprise insurance workflows." data-project-featured="false">
+                            <div class="project-name">
+                                <span>GW Compare: Platform Modernization</span>
+                            </div>
+                            <div class="project-type">Enterprise UX<span class="nda-tag">NDA</span></div>
+                            <div class="project-year">2024</div>
+                            <div class="project-arrow">→</div>
+                        </div>
+                        <div class="project-row" data-project-index="2" data-project-image="images/projects/security-hq.jpg" data-project-description="Advanced conversational interface to optimize business processes in the CX domain, leading to a 600% reduction in customer support requests." data-project-featured="false">
+                            <div class="project-name">
+                                <span>SecuRita Chatbot</span>
+                            </div>
+                            <div class="project-type">Conversational Interface</div>
+                            <div class="project-year">2022</div>
+                            <div class="project-arrow">→</div>
+                        </div>
+                        <div class="project-row" data-project-index="3" data-project-image="images/projects/project-2.jpg" data-project-description="Positioning Schneider Electric in the Smart and Sustainable home market navigating the tricky balance of meeting the diverse needs of builders, homeowners, and busines." data-project-featured="false">
+                            <div class="project-name">
+                                <span>Smart BundleUp</span>
+                            </div>
+                            <div class="project-type">Strategy & Service Design</div>
+                            <div class="project-year">2022</div>
+                            <div class="project-arrow">→</div>
+                        </div>
+                        <div class="project-row" data-project-index="4" data-project-image="images/projects/project-3.jpg" data-project-description="Leveraged 5G and spatial audio to create immersive basketball experiences, bringing the game's energy to life for visually impaired fans." data-project-featured="false">
+                            <div class="project-name">
+                                <span>What the ball hears</span>
+                            </div>
+                            <div class="project-type">Accessible Sports UX</div>
+                            <div class="project-year">2021</div>
+                            <div class="project-arrow">→</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials Tab -->
+                <div class="tab-pane" id="testimonials">
+                    <div class="testimonials-content">
+                        <div class="testimonial-card-container">
+                            <div class="testimonial-card active" data-testimonial="0">
+                                <div class="testimonial-quote-mark">"</div>
+                                <div class="testimonial-card-content">
+                                    <p class="testimonial-card-text">I was very impressed with the quality of her work, as well as her willingness to adapt to new information and refine designs based on feedback from stakeholders and developers. She demonstrated a fantastic set of design skills throughout the process, from initial requirements gathering through design execution and development support. She spearheaded an internal research project to get answers in service of a stronger design vision on her project, independently moderating interviews with representative end users and presenting a strong analysis. I attended with the intention of stepping in to help if needed only to find that Divya was a more than capable interviewer, getting to the heart of feedback with well considered questions and handling technical hiccups with grace.</p>
+                                    <div class="testimonial-card-author">
+                                        <div class="testimonial-card-name">Jennifer Fisher</div>
+                                        <div class="testimonial-card-title">UX Architect - Guidewire Software</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card" data-testimonial="1" style="display: none;">
+                                <div class="testimonial-quote-mark">"</div>
+                                <div class="testimonial-card-content">
+                                    <p class="testimonial-card-text">Divya and I have worked closely on several academic and professional projects during our MS-HCI course at IUPUI & at Guidewire Software. I have always been in awe of her capability to grasp concepts so quickly and come up with innovative solutions while brainstorming and problem-solving. She has a very strong hold on her UX Research skills and the data gathering has always been on point. She already was a very good full-stack engineer, but I've seen her grow as a UX researcher and Designer in the past two years too and I'm sure she'll prove to be an asset to any company she joins. I wish her good luck in all her future endeavors.</p>
+                                    <div class="testimonial-card-author">
+                                        <div class="testimonial-card-name">Priyanjali Mittal</div>
+                                        <div class="testimonial-card-title">UX Designer - Guidewire Software</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-card" data-testimonial="2" style="display: none;">
+                                <div class="testimonial-quote-mark">"</div>
+                                <div class="testimonial-card-content">
+                                    <p class="testimonial-card-text">I had the pleasure of working directly with Divya for about 18 months at Guidewire, where we collaborated to build and successfully launch the GA version of Guidewire Analytics Manager. During this time, Divya proved to be a dedicated, intuitive, and insightful colleague with great attention to detail. If given the opportunity, I would gladly work with her again in a heartbeat.</p>
+                                    <div class="testimonial-card-author">
+                                        <div class="testimonial-card-name">Andrii Khmelkov</div>
+                                        <div class="testimonial-card-title">Engineering Manager - Delos Insurance Solutions</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Tab -->
+                <div class="tab-pane" id="resume">
+                    <div class="content-section">
+                        <h2>Resume</h2>
+                        <p>Add your resume content here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

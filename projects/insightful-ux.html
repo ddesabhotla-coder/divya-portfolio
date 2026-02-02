@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insightful UX - Project</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .project-page-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        .project-left-column {
+            width: calc(45% - 40px);
+            height: calc(100vh - 40px);
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-left-column img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-right-column {
+            width: 55%;
+            margin-left: 45%;
+            background: #ffffff;
+            padding: 20px 40px;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .project-back-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .project-back-link:hover {
+            color: #4A90E2;
+        }
+
+        .project-page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 40px;
+        }
+
+        .project-content-wrapper {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            background: #000000;
+            color: #ffffff;
+            padding: 16px 24px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            background: #ffffff;
+            padding: 32px 24px;
+            color: #000000;
+        }
+
+        /* Context Section with Side-by-Side Layout */
+        .context-section-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .context-text-section {
+            flex: 1.5;
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .context-text-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .context-text-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: #000000;
+        }
+
+        .context-text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .metadata-sections {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metadata-section {
+            background: #F7FAF8;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .metadata-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .metadata-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        .comic-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            row-gap: 4px;
+            margin: 0;
+        }
+
+        .comic-panel {
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .comic-panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            padding: 12px 8px;
+            margin: 0;
+            border-bottom: 1px solid #000000;
+        }
+
+        .comic-illustration {
+            width: 100%;
+            min-height: 300px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .comic-illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .comic-panel-caption {
+            font-size: 12px;
+            color: #000000;
+            text-align: center;
+            padding: 12px 8px;
+            margin: 0;
+            line-height: 1.4;
+            border-top: 1px solid #000000;
+        }
+
+        .problem-question {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-top: 32px;
+            line-height: 1.6;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        /* Problem Statement section content background */
+        #problem-statement .section-content {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        #problem-statement .section-content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        #problem-statement .section-header {
+            display: none;
+        }
+
+        .section-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        .star-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* Impact and Case Study Focus sections styling */
+        .highlighted-section {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .highlighted-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlighted-section .star-icon {
+            color: #5F7B6C;
+            font-size: 24px;
+            display: inline-block;
+        }
+
+        .highlighted-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        .constraint-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraint-list li {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+
+        .constraint-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Constraint section styling */
+        .constraint-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .constraint-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        /* Approach section styling */
+        .approach-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .approach-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        /* Outcome section styling */
+        .outcome-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .outcome-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .outcome-quote {
+            font-size: 24px;
+            font-weight: 500;
+            font-style: italic;
+            color: #000000;
+            margin: 20px 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .approach-steps {
+            margin-top: 24px;
+            padding-left: 24px;
+        }
+
+        .approach-steps li {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .approach-steps li:last-child {
+            margin-bottom: 0;
+        }
+
+        .source-link {
+            font-size: 12px;
+            color: #4A90E2;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .source-link a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .source-link a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .outcome-screenshot {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 100%;
+        }
+
+        .outcome-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .outcome-screenshot video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .outcome-screenshot .sl-embed {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .outcome-screenshot iframe.sl-demo {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Project Reflections section styling - matching sections above */
+        .reflections-section {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .reflections-section h2 {
+            font-family: var(--font-family);
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .reflection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .reflection-item {
+            margin-bottom: 0;
+        }
+
+        .reflection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .reflection-header h3 {
+            font-family: var(--font-family);
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-chevron {
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .reflection-item.active .reflection-chevron {
+            transform: rotate(180deg);
+        }
+
+        .reflection-header:hover .reflection-chevron {
+            color: #1a1a1a;
+        }
+
+        .reflection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .reflection-item.active .reflection-content {
+            max-height: 500px;
+            padding: 16px 0;
+        }
+
+        .reflection-content p {
+            font-family: var(--font-family);
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-divider {
+            height: 1px;
+            background: #e5e5e5;
+            width: 100%;
+        }
+
+        .reflection-item:last-child .reflection-divider {
+            display: none;
+        }
+
+        /* Case Study Navigation */
+        .case-study-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding: 40px 32px;
+            padding-bottom: 80px;
+            border-top: 1px solid #e5e5e5;
+            background: #F7FAF8;
+            border-radius: 12px;
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #4A90E2;
+        }
+
+        .nav-link.prev {
+            flex-direction: row;
+        }
+
+        .nav-link.next {
+            flex-direction: row-reverse;
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-page-container">
+        <!-- Left Column: Project Image -->
+        <div class="project-left-column">
+            <img src="../images/projects/project-1.jpg" alt="Insightful UX">
+        </div>
+
+        <!-- Right Column: Project Content -->
+        <div class="project-right-column">
+            <a href="../index.html#projects" class="project-back-link">← Back to Projects</a>
+            <h1 class="project-page-title">Insightful UX</h1>
+            
+            <div class="project-content-wrapper">
+                <!-- Context and Metadata Sections (Side by Side) -->
+                <div class="context-section-wrapper">
+                    <!-- Left Column: Context -->
+                    <div class="context-text-section">
+                        <h2>The Context</h2>
+                        <p>Every day, underwriters and claims adjusters arrive to overflowing queues—new policies to evaluate, claims to review, deadlines that can’t slip. Each decision they make carries real consequences: financial risk for the business, compliance obligations, and outcomes that directly affect customers.
+
+                            To move work forward, they must sift through large volumes of complex information—risk reports, policy history, third-party data, photos, and notes—often scattered across multiple systems. Important details are buried, context is fragmented, and the pressure to act quickly leaves little room for second-guessing.
+                            
+                            In this environment, the challenge isn’t a lack of data—it’s making the right information visible at the right moment, so experts can focus on judgment instead of searching.</p>
+                    </div>
+
+                    <!-- Right Column: Metadata Sections -->
+                    <div class="metadata-sections">
+                        <div class="metadata-section">
+                            <h3>Timeline</h3>
+                            <p>2023-2024</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Domain</h3>
+                            <p>Analytics UX, Fintech, B2B</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Role</h3>
+                            <p>UX Designer, User Testing, Prototyping</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Team</h3>
+                            <p>2 Designers, 1 Lead Dev, 1 Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem Statement Section -->
+                <section class="project-section" id="problem-statement">
+                    <div class="section-content">
+                        <h2>Problem Statement</h2>
+                        <div class="comic-strip">
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/problem-statement/morning-rush.jpg" alt="The Morning Rush">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/problem-statement/the-volume.jpg" alt="The Volume">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/problem-statement/fragmented-data.jpg" alt="Fragmented Data">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/problem-statement/cognitive-overload.jpg" alt="Cognitive Overload">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="problem-question">How might we reduce cognitive load for underwriters and claims adjusters by simplifying complex data into clear, actionable insights—without disrupting their existing workflows?</p>
+                    </div>
+                </section>
+
+                <!-- Impact Section -->
+                <section class="project-section">
+                    <div class="highlighted-section">
+                        <h2><span class="star-icon">✩</span> Impact</h2>
+                        <p>Partnered with Product and Engineering to embed contextual analytics across four enterprise products, transforming standalone reports into in-workflow insights and driving a 25% increase in adoption.</p>
+                    </div>
+                </section>
+
+                <!-- Constraint Section -->
+                <section class="project-section">
+                    <div class="constraint-section">
+                        <h2>Constraint</h2>
+                        <ul class="constraint-list">
+                            <li><strong>Legacy architecture</strong> limited integrations to iframe-based embedding, requiring solutions that could operate independently while feeling native within host products.</li>
+                            <li><strong>Stateless system</strong> requirements driven by PII and regulatory constraints, preventing persistence of user or customer data across sessions.</li>
+                            <li><strong>Carrier-specific underwriting guidelines</strong> that frequently change, necessitating a highly flexible and configurable system rather than fixed logic or hard-coded rules.</li>
+                            <li><strong>No access to end users</strong> given the b2b nature of the company</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Case Study Focus Section -->
+                <section class="project-section">
+                    <div class="highlighted-section">
+                        <h2><span class="star-icon">✩</span> Case Study Focus</h2>
+                        <p>This initiative embedded insights from four analytics systems into decision-critical points across five enterprise workflows. To keep the narrative focused, this case study highlights the <strong>property underwriting use case</strong>, while the custom-built configuration platform that powered these experiences will be detailed in a separate case study.</p>
+                    </div>
+                </section>
+
+                <!-- Approach Section -->
+                <section class="project-section">
+                    <div class="approach-section">
+                        <h2>Approach</h2>
+                        <div class="comic-strip">
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/approach/step-1.jpg" alt="Underwriter's need identified">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/approach/step-2.jpg" alt="Determine critical information">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/approach/step-3.jpg" alt="What's actually critical">
+                                </div>
+                            </div>
+                            <div class="comic-panel">
+                                <div class="comic-illustration">
+                                    <img src="../images/approach/step-4.jpg" alt="Making Data make sense">
+                                </div>
+                            </div>
+                        </div>
+                        <ol class="approach-steps">
+                            <li><strong>Understand the use case</strong> → Identify decision moments and where insights can reduce effort without disrupting workflows.</li>
+                            <li><strong>Determine critical information</strong> → Define hierarchy: crucial signals vs supporting data. Clarify what must be 'glanceable' vs 'drill-down'.</li>
+                            <li><strong>Categorize & Wireframe</strong> → Group insights into meaningful sections and choose visuals that best convey risk, confidence, and impact.</li>
+                            <li><strong>User (SME) testing</strong> → Validate that information is interpreted as intended and supports real decisions under time pressure.</li>
+                            <li><strong>UX patterns, accessibility & Dev audit</strong> → Align reusable patterns across products; audit for accessibility; identify scale-downs due to tech limits.</li>
+                            <li><strong>Hi-fid Design iteration & testing loop</strong> → Refine designs based on user feedback and feasibility.</li>
+                            <li><strong>Dev handoff & UX debt loop</strong> → 1. Partner through build, document patterns, and track and manage UX debt that arise due to time and dependency constraints</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- Outcome Section -->
+                <section class="project-section">
+                    <div class="outcome-section">
+                        <h2>Outcome</h2>
+                        <p class="outcome-quote">"Right information surfaced at the right time"</p>
+                        <p class="source-link"><a href="https://www.guidewire.com/products/analytics/hazardhub-risk-data#free-trial" target="_blank">Source</a></p>
+                        <div class="outcome-screenshot">
+                            <video controls style="width: 100%; height: auto;">
+                                <source src="../videos/insightful-UX-outcomes.mp4" type="video/mp4">
+                                <source src="../videos/insightful-UX-outcomes.webm" type="video/webm">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Reflections Section -->
+                <section class="project-section">
+                    <div class="reflections-section">
+                        <h2>Project Reflections</h2>
+                        <div class="reflection-items">
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>In high-stakes systems, clarity builds confidence, but transparency builds trust.</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>While the Underwriters are looking for instant insights, we still need to provide them a way to verify the details by providing a way to drill down for indicators that ket to that key insight.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Reducing Cognitive Load Means Removing Work</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>The most impactful outcomes wasn't from adding analytics - it was removing the need to search, compare, and mentally reconcile multiple data sources. By embedding insights directly at decision points, we reduced scanning behavior and helped users stay in flow.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Consistency Scales Faster Than Customization</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Once we did the ground work for one of the embedded use cases, we were able to build faster by reusing patterns across solutions</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Design Ownership Doesn't End at Handoff</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Several design compromises surfaced during development due to performance and integration constraints. Rather than treating these as failures, we tracked them as UX debt and documented future improvements, ensuring design intent wasn't lost over time.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Study Navigation -->
+                <div class="case-study-navigation">
+                    <a href="../index.html#projects" class="nav-link prev">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Back to Projects</span>
+                    </a>
+                    <a href="gw-compare.html" class="nav-link next">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Next Project</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize reflection accordions - matching design values interaction
+        document.addEventListener('DOMContentLoaded', () => {
+            const reflectionItems = document.querySelectorAll('.reflection-item');
+            reflectionItems.forEach((item) => {
+                const header = item.querySelector('.reflection-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Close other items
+                        reflectionItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                        // Toggle current item
+                        item.classList.toggle('active');
+                    });
+                    header.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

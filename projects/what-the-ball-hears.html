@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What the ball hears - Project</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .project-page-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        .project-left-column {
+            width: calc(45% - 40px);
+            height: calc(100vh - 40px);
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-left-column img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-left-column .figma-prototype {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .project-left-column.show-figma img {
+            display: none;
+        }
+
+        .project-left-column.show-figma .figma-prototype {
+            display: block;
+        }
+
+        .project-right-column {
+            width: 55%;
+            margin-left: 45%;
+            background: #ffffff;
+            padding: 20px 40px;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .project-back-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 16px;
+            margin-top: 0;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .project-back-link:hover {
+            color: #2d5016;
+        }
+
+        .project-page-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 40px;
+        }
+
+        .project-content-wrapper {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            background: #000000;
+            color: #ffffff;
+            padding: 16px 24px;
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            background: #ffffff;
+            padding: 32px 24px;
+            color: var(--color-heading);
+        }
+
+        /* Context Section with Side-by-Side Layout */
+        .context-section-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .context-text-section {
+            flex: 1.5;
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .context-text-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 20px;
+        }
+
+        .context-text-section p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            margin-bottom: 16px;
+            color: var(--color-heading);
+        }
+
+        .context-text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .metadata-sections {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metadata-section {
+            background: #F7FAF8;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .metadata-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 12px;
+        }
+
+        .metadata-section p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin: 0;
+        }
+
+        .comic-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            row-gap: 4px;
+            margin: 0;
+        }
+
+        .comic-panel {
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .comic-illustration {
+            width: 100%;
+            min-height: 300px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .comic-illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .problem-question {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-top: 32px;
+            line-height: 1.6;
+        }
+
+        /* Problem Statement section - same styling as Smart BundleUp (previous project) */
+        .problem-challenge {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0 0 32px 0;
+        }
+
+        .problem-perspectives {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .problem-perspective-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .problem-perspective-card-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .problem-perspective-visual {
+            flex: 0 0 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .problem-perspective-illustration {
+            max-width: 200px;
+            max-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-perspective-illustration img {
+            max-width: 100%;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            image-rendering: auto;
+        }
+
+        .problem-perspective-label {
+            display: inline-block;
+            background: #1a4d2e;
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+        }
+
+        .problem-perspective-quote {
+            flex: 1;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+            text-align: center;
+        }
+
+        .problem-highlight {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .problem-hmw {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .problem-hmw-heading {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #2d5016;
+            margin: 0 0 12px 0;
+        }
+
+        .problem-hmw-question {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        #problem-statement .section-content {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        #problem-statement .section-content h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 20px;
+        }
+
+        #problem-statement .section-header {
+            display: none;
+        }
+
+        /* How might we and Constraints sections */
+        .problem-subsection {
+            margin-top: 32px;
+        }
+
+        .problem-subsection h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .problem-subsection p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .problem-subsection p strong {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .constraints-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraints-list li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .constraints-list li:before {
+            content: "•";
+            color: var(--color-text-muted);
+            margin-right: 8px;
+        }
+
+        .constraints-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        .star-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* Impact and Case Study Focus sections styling */
+        .highlighted-section {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .highlighted-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlighted-section .star-icon {
+            color: #5F7B6C;
+            font-size: 24px;
+            display: inline-block;
+        }
+
+        .highlighted-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* Key Features: Solution section */
+        .solution-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .solution-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 24px;
+        }
+
+        .solution-intro {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0 0 28px 0;
+        }
+
+        .solution-image-wrap {
+            margin-bottom: 28px;
+            max-width: 100%;
+        }
+
+        .solution-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .solution-whats-in-it-heading {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin: 0 0 20px 0;
+        }
+
+        .solution-party-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .solution-party-card {
+            padding: 24px;
+            min-width: 0;
+        }
+
+        .solution-party-card:nth-child(2),
+        .solution-party-card:nth-child(3) {
+            border-left: 1px solid #d0d0d0;
+        }
+
+        .solution-party-title {
+            font-size: var(--font-size-base);
+            font-weight: 700;
+            color: #2d5016;
+            margin: 0 0 12px 0;
+        }
+
+        .solution-party-card p {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* Key Features: three items with text left, image right (like outcome in compare project) */
+        .key-feature-items {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .key-feature-item {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 24px;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .key-feature-content {
+            flex: 1 1 50%;
+            min-width: 260px;
+        }
+
+        .key-feature-content h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin: 0 0 12px 0;
+        }
+
+        .key-feature-content p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .key-feature-image {
+            flex: 0 1 28%;
+            min-width: 200px;
+        }
+
+        .key-feature-image img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Impact section (same structure and styling as Smart BundleUp and other project pages) */
+        .impact-section-block {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .impact-section-block h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impact-section-block .star-icon {
+            color: #5F7B6C;
+            font-size: var(--font-size-xl);
+            display: inline-block;
+        }
+
+        .impact-image-wrap {
+            margin-bottom: 28px;
+            max-width: 100%;
+        }
+
+        .impact-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .impact-image-text-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 28px;
+        }
+
+        .impact-image-text-row .impact-image-wrap {
+            flex: 0 1 45%;
+            min-width: 280px;
+            margin-bottom: 0;
+        }
+
+        .impact-intro-text {
+            flex: 1 1 45%;
+            min-width: 280px;
+            color: #444;
+            line-height: var(--line-height-base);
+        }
+
+        .impact-intro-text p {
+            margin: 0 0 12px 0;
+        }
+
+        .impact-intro-text p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .impact-intro-text ul {
+            margin: 0 0 12px 0;
+            padding-left: 1.25em;
+        }
+
+        .impact-intro-text li {
+            margin-bottom: 6px;
+        }
+
+        .impact-metrics-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .impact-subsection {
+            margin-bottom: 28px;
+        }
+
+        .impact-subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact-subsection-title {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin: 0 0 16px 0;
+        }
+
+        .impact-stats-row {
+            display: grid;
+            gap: 24px;
+        }
+
+        .impact-stats-three {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .impact-stats-two {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .impact-stat {
+            min-width: 0;
+        }
+
+        .impact-stat-value {
+            display: block;
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin-bottom: 8px;
+        }
+
+        .impact-stat-label {
+            display: block;
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-tight);
+            color: var(--color-text-muted);
+        }
+
+        /* Approach process diagram (same as Smart BundleUp) */
+        .approach-process-diagram {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .approach-process-diagram .process-diagram-row {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            min-width: min-content;
+        }
+
+        .approach-process-diagram .process-stage {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .approach-process-diagram .process-stage-header {
+            background: #1a4d2e;
+            color: white;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .approach-process-diagram .process-stage-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 8px 6px;
+            background: #fff;
+        }
+
+        .approach-process-diagram .process-stage-item {
+            background: #e8e8e8;
+            color: #000;
+            font-size: var(--font-size-xs);
+            padding: 8px 10px;
+            border-radius: 16px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* Heuristic Evaluation Comparison */
+        .he-comparison {
+            margin-top: 32px;
+        }
+
+        .he-comparison-title {
+            font-size: 16px;
+            font-weight: 400;
+            color: #2d5016;
+            margin-bottom: 32px;
+        }
+
+        .he-comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .he-section {
+            width: 100%;
+        }
+
+        .he-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .he-scale-bar {
+            width: 100%;
+            height: 24px;
+            background: linear-gradient(to right, 
+                #E4572E 0%, #E4572E 18%, 
+                transparent 18%, transparent 20%,
+                #F0A800 20%, #F0A800 38%,
+                transparent 38%, transparent 40%,
+                #FFDE00 40%, #FFDE00 58%,
+                transparent 58%, transparent 60%,
+                #9CCC65 60%, #9CCC65 78%,
+                transparent 78%, transparent 80%,
+                #5F9C3E 80%, #5F9C3E 100%);
+            border-radius: 4px;
+            position: relative;
+            flex-shrink: 0;
+            margin-bottom: 8px;
+        }
+
+        .he-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 32px;
+            background: #000000;
+        }
+
+        .he-indicator.before {
+            left: 0%;
+        }
+
+        .he-indicator.after {
+            left: 92%;
+        }
+
+        .he-score {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .constraint-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraint-list li {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+
+        .constraint-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Constraint section styling */
+        .constraint-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .constraint-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .constraint-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .constraint-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .constraint-section strong {
+            font-weight: 600;
+        }
+
+        /* Approach section styling */
+        .approach-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .approach-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .approach-intro {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .approach-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .approach-analysis {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .approach-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .approach-method {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .approach-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        .approach-header:hover {
+            color: var(--color-heading);
+        }
+
+        .approach-header h3 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin: 0;
+            line-height: var(--line-height-base);
+            flex: 1;
+        }
+
+        .approach-header h3 .approach-arrow {
+            font-weight: var(--font-weight-normal);
+        }
+
+        .approach-header h3 .approach-description {
+            font-weight: var(--font-weight-normal);
+        }
+
+        .approach-arrow {
+            color: var(--color-heading);
+            margin: 0 4px;
+        }
+
+        .approach-chevron {
+            width: 20px;
+            height: 20px;
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .approach-method.active .approach-chevron {
+            transform: rotate(180deg);
+        }
+
+        .approach-header:hover .approach-chevron {
+            color: var(--color-heading);
+        }
+
+        .approach-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .approach-method.active .approach-content {
+            max-height: 5000px;
+            padding: 16px 0;
+        }
+
+        .approach-content .what-label {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #1a4d2e;
+            margin-bottom: 12px;
+        }
+
+        .approach-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .approach-content li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .approach-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #000000;
+        }
+
+        .approach-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Brainstorming & Ideation: content and image side by side */
+        .ideation-intro-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .ideation-intro-content {
+            flex: 1 1 55%;
+            min-width: 260px;
+        }
+
+        .ideation-intro-image {
+            flex: 0 1 38%;
+            min-width: 220px;
+        }
+
+        .ideation-intro-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* SME findings: 2x2 grid, white box per finding */
+        .sme-findings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 16px;
+            margin-bottom: 24px;
+        }
+
+        .sme-finding-card {
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .sme-finding-card h4 {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #1a4d2e;
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+        }
+
+        .sme-finding-card p {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* User Study: responsive YouTube video embed */
+        .user-study-video {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            margin: 20px 0 24px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .user-study-video::before {
+            content: '';
+            display: block;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .user-study-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Pain Points: two images side by side */
+        .painpoints-images-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 24px;
+        }
+
+        .painpoints-image {
+            flex: 1 1 45%;
+            min-width: 200px;
+        }
+
+        .painpoints-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* Technology Research: 2x2 grid, each quadrant = heading + image + description */
+        .tech-research-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tech-research-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .tech-research-card h4 {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #1a4d2e;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .tech-research-card .tech-research-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tech-research-card .tech-research-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .tech-research-card .tech-research-desc {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* Accessibility Research: 3-column grid, each cell = heading + image + description */
+        .accessibility-research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 16px;
+            margin-bottom: 24px;
+        }
+
+        .accessibility-research-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .accessibility-research-card h4 {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #1a4d2e;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .accessibility-research-card .accessibility-research-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accessibility-research-card .accessibility-research-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .accessibility-research-card .accessibility-research-desc {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* Final Solution: end-to-end solution image */
+        .solution-e2e-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .solution-e2e-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Business Model Canvas: BMC image placeholder */
+        .bmc-image {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bmc-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .approach-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 0;
+            border: none;
+        }
+
+        .approach-method:last-child .approach-divider {
+            display: none;
+        }
+
+        .source-link {
+            font-size: 12px;
+            color: #2d5016;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .source-link a {
+            color: #2d5016;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .outcome-screenshot {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 100%;
+        }
+
+        .outcome-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .outcome-screenshot video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .outcome-screenshot .sl-embed {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .outcome-screenshot iframe.sl-demo {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Outcome section styling */
+        .outcome-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .outcome-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 32px;
+        }
+
+        .outcome-items {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .outcome-item {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .outcome-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .outcome-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0 0 20px 0;
+        }
+
+        .outcome-item p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .outcome-disclaimer {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding: 0;
+        }
+
+        .outcome-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .outcome-image-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .outcome-image-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .outcome-image-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .outcome-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .outcome-item:last-child .outcome-images {
+            display: block;
+            grid-template-columns: 1fr;
+        }
+
+        .outcome-item:last-child .outcome-image-container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-quote {
+            font-size: 24px;
+            font-weight: 500;
+            font-style: italic;
+            color: #000000;
+            margin: 20px 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        /* Project Reflections section styling - matching sections above */
+        .reflections-section {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .reflections-section h2 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .reflection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .reflection-item {
+            margin-bottom: 0;
+        }
+
+        .reflection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .reflection-header h3 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-heading);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-chevron {
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .reflection-item.active .reflection-chevron {
+            transform: rotate(180deg);
+        }
+
+        .reflection-header:hover .reflection-chevron {
+            color: #1a1a1a;
+        }
+
+        .reflection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .reflection-item.active .reflection-content {
+            max-height: 2000px;
+            padding: 16px 0;
+        }
+
+        .reflection-content p {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--color-text-muted);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-content ul {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--color-text-muted);
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .reflection-content li {
+            margin-bottom: 8px;
+        }
+
+        .reflection-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .reflection-divider {
+            height: 1px;
+            background: #e5e5e5;
+            width: 100%;
+        }
+
+        .reflection-item:last-child .reflection-divider {
+            display: none;
+        }
+
+        /* Awards Section (matches solution-section / impact-section-block) */
+        .awards-section-block {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .awards-section-block h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 24px;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .awards-grid img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #e5e5e5;
+        }
+
+        /* Case Study Navigation */
+        .case-study-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding: 40px 32px;
+            padding-bottom: 80px;
+            border-top: 1px solid #e5e5e5;
+            background: #F7FAF8;
+            border-radius: 12px;
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-heading);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #2d5016;
+        }
+
+        .nav-link.prev {
+            flex-direction: row;
+        }
+
+        .nav-link.next {
+            flex-direction: row-reverse;
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-page-container">
+        <!-- Left Column: Project Image or Figma Prototype when in Key Features / Approach / Impact -->
+        <div class="project-left-column" id="project-left-column">
+            <img src="../images/projects/project-3.jpg" alt="What the ball hears">
+            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - What the ball hears" src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjJvMvGYxjpfnjljjdhQj7F%2FAT-T-Hackathon%3Fpage-id%3D72%253A2287%26node-id%3D72-4308%26p%3Df%26viewport%3D713%252C-97%252C0.36%26t%3DehOuowFCoBKCKDEw-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A4308%26show-proto-sidebar%3D1" allowfullscreen></iframe>
+        </div>
+
+        <!-- Right Column: Project Content -->
+        <div class="project-right-column">
+            <a href="../index.html#projects" class="project-back-link">← Back to Projects</a>
+            <h1 class="project-page-title">What does the ball hear?</h1>
+            <div class="project-content-wrapper">
+                <!-- Context and Metadata Sections (Side by Side) -->
+                <div class="context-section-wrapper">
+                    <!-- Left Column: Context -->
+                    <div class="context-text-section">
+                        <h2>Overview</h2>
+                        <p><strong>AT&amp;T Hackathon</strong> — In October 2021, AT&amp;T hosted a 5G in Sports Hackathon at Butler University in Indianapolis, where participants were challenged to create innovative solutions for enhancing various aspects of sports through technologies like 5G. The teams focused on solving problems across three key areas: Fan Engagement, IoT, and Venue Safety.</p>
+                        <p><strong>Our direction</strong> — As a team, we refined the problem statement to focus on enhancing fan engagement through 5G technology, with additional emphasis on addressing the needs of visually impaired fans.</p>
+                    </div>
+
+                    <!-- Right Column: Metadata Sections -->
+                    <div class="metadata-sections">
+                        <div class="metadata-section">
+                            <h3>Timeline</h3>
+                            <p>Oct 2021, 48 hours</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Disciplines</h3>
+                            <p>Product Design, UX Design, Accessibility</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>My Role</h3>
+                            <p>UX Research, UI Design, Business Model, User Testing</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Team Size</h3>
+                            <p>5</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem Statement Section (same structure and styling as Smart BundleUp) -->
+                <section class="project-section" id="problem-statement">
+                    <div class="section-content">
+                        <h2>Problem Statement</h2>
+                        <p class="problem-challenge">Basketball fans who are visually impaired often rely on radio commentary or sighted companions to follow the game. Courtside tickets that offer the best acoustic experience are expensive and out of reach for many. The challenge was creating an affordable, immersive experience that extends engagement to visually impaired fans.</p>
+                        <div class="problem-perspectives">
+                            <div class="problem-perspective-card">
+                                <div class="problem-perspective-visual">
+                                    <div class="problem-perspective-illustration" aria-hidden="true">
+                                        <img src="../images/persona/what-the-ball-hears-basketball-fan.jpg" alt="Basketball fan at a live game.">
+                                    </div>
+                                    <span class="problem-perspective-label">Basketball Fan</span>
+                                </div>
+                                <p class="problem-perspective-quote">"Court-side tickets that offer the best acoustic experience but are so expensive that I can never have the best experience!"</p>
+                            </div>
+                            <div class="problem-perspective-card problem-perspective-card-reverse">
+                                <div class="problem-perspective-visual">
+                                    <div class="problem-perspective-illustration" aria-hidden="true">
+                                        <img src="../images/persona/what-the-ball-hears-persona.jpg" alt="Visually impaired fan at a live basketball game.">
+                                    </div>
+                                    <span class="problem-perspective-label">Visually impaired fan</span>
+                                </div>
+                                <p class="problem-perspective-quote">"I am so dependent on a companion or commentary to understand whats happening on the field. I wish there was a <strong class="problem-highlight">better way for me to enjoy basketball</strong>!!"</p>
+                            </div>
+                        </div>
+                        <div class="problem-hmw">
+                            <h3 class="problem-hmw-heading">How might we</h3>
+                            <p class="problem-hmw-question">Improve the overall <strong>Fan Engagement</strong> for the game of <strong>BASKETBALL</strong> using 5G technology and extend the engagement to the <strong>visually impaired</strong>?</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Features: Solution Section (three items, text left / image right, like outcome in compare project) -->
+                <section class="project-section" id="key-features-section">
+                    <div class="solution-section">
+                        <h2>Key Features</h2>
+                        <div class="key-feature-items">
+                            <div class="key-feature-item">
+                                <div class="key-feature-content">
+                                    <h3>Sensor-embedded basketball</h3>
+                                    <p>Sensors embedded within the ball capture its location on the court, along with audio of the ball bouncing, player movements, and player interactions. The basketball is charged through wireless charging.</p>
+                                </div>
+                                <div class="key-feature-image">
+                                    <img src="../images/projects/what-the-ball-hears-key-feature-1.jpg" alt="Sensor-embedded basketball capturing location and audio on the court.">
+                                </div>
+                            </div>
+                            <div class="key-feature-item">
+                                <div class="key-feature-content">
+                                    <h3>5G network with low latency</h3>
+                                    <p>A 5G network with low latency ensures a real-time, seamless experience for fans, enabling instant transmission of location and audio data without delays.</p>
+                                </div>
+                                <div class="key-feature-image">
+                                    <img src="../images/projects/what-the-ball-hears-key-feature-2.jpg" alt="5G low-latency network for real-time fan experience.">
+                                </div>
+                            </div>
+                            <div class="key-feature-item">
+                                <div class="key-feature-content">
+                                    <h3>Spatial audio experience</h3>
+                                    <p>The location and audio data are used to create a spatial audio experience, allowing visually impaired fans to experience the game through sound. This brings the game's energy to life and provides an affordable alternative to expensive courtside tickets.</p>
+                                </div>
+                                <div class="key-feature-image">
+                                    <img src="../images/projects/what-the-ball-hears-key-feature-3.jpg" alt="Spatial audio experience for visually impaired fans.">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Impact Section (same structure as Smart BundleUp and other project pages) -->
+                <section class="project-section" id="impact-section">
+                    <div class="impact-section-block">
+                        <h2><span class="star-icon">✩</span> Impact</h2>
+                        <div class="impact-subsection">
+                            <h3 class="impact-subsection-title">Reach</h3>
+                            <div class="impact-metrics-box">
+                                <div class="impact-stats-row impact-stats-three">
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">40 million</span>
+                                        <span class="impact-stat-label">Visually impaired worldwide potential fans</span>
+                                    </div>
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">400 million</span>
+                                        <span class="impact-stat-label">Basketball fans worldwide</span>
+                                    </div>
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">1 million</span>
+                                        <span class="impact-stat-label">Visually impaired in USA, more likely inclined towards the sport</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="impact-subsection">
+                            <h3 class="impact-subsection-title">Business Impact</h3>
+                            <div class="impact-metrics-box">
+                                <ul style="margin: 0; padding-left: 1.25em; font-size: var(--font-size-base); line-height: var(--line-height-base); color: var(--color-text);">
+                                    <li>Increase in the Total Addressable Market</li>
+                                    <li>Monetization from apps</li>
+                                    <li>Virtual seat concept</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Approach Section -->
+                <section class="project-section" id="approach-section">
+                    <div class="approach-section">
+                        <h2>Approach</h2>
+                       
+                        <div class="approach-process-diagram" role="img" aria-label="Process diagram: Formative Research, Ideation & Validation, Final Solution & Design, Business Model">
+                            <div class="process-diagram-row">
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Formative Research</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Pain Points</span>
+                                        <span class="process-stage-item">Technology</span>
+                                        <span class="process-stage-item">Personas</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Ideation &amp; Validation</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">SME Evaluation</span>
+                                        <span class="process-stage-item">User Study</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Final Solution &amp; Design</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Spatial Audio</span>
+                                        <span class="process-stage-item">Sensor in Ball</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Business Model</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Revenue Streams</span>
+                                        <span class="process-stage-item">Value Proposition</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="approach-content-wrapper">
+                            <div class="approach-items">
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Formative Research: Pain Points &amp; Technology <span class="approach-arrow">→</span> <span class="approach-description">Understanding fan needs and available technologies.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Pain Points of Basketball Fans</div>
+                                        <ul>
+                                            <li><strong>01 — Expensive courtside tickets:</strong> Court-side experience is too expensive for the average fan. The experience in the bleachers is not complete especially in terms of audio. Commentary and audience noise often drown out gameplay sounds.</li>
+                                            <li><strong>02 — Engagement of visually impaired fans:</strong> Visually impaired fans rely on radio commentary to understand the game or have a sighted companion accompanying them who narrate the game. Additionally there is a Secondary Audio Programming (SAP) broadcast which includes an audio description track in addition to TV audio.</li>
+                                        </ul>
+                                        <div class="painpoints-images-row">
+                                            <div class="painpoints-image">
+                                                <img src="../images/projects/wtbh-painpoint-1.jpg" alt="Pain point 1 - Expensive courtside tickets.">
+                                            </div>
+                                            <div class="painpoints-image">
+                                                <img src="../images/projects/wtbh-painpoint-2.jpg" alt="Pain point 2 - Engagement of visually impaired fans.">
+                                            </div>
+                                        </div>
+                                        <div class="what-label">Technology Research</div>
+                                        <div class="tech-research-grid">
+                                            <div class="tech-research-card">
+                                                <h4>Smart Basketball</h4>
+                                                <div class="tech-research-image">
+                                                    <img src="../images/projects/wtbh-tech-1.jpg" alt="Smart Basketball - 94Fifty, Wilson X.">
+                                                </div>
+                                                <p class="tech-research-desc">The 94Fifty Smart Basketball Sensor and Wilson X connected basketball can be used for shot perfection. The basketball is charged through wireless charging.</p>
+                                            </div>
+                                            <div class="tech-research-card">
+                                                <h4>Spatial Audio</h4>
+                                                <div class="tech-research-image">
+                                                    <img src="../images/projects/wtbh-tech-2.jpg" alt="Spatial Audio - AirPods Pro, Beats.">
+                                                </div>
+                                                <p class="tech-research-desc">Apple AirPods Pro and Beats promise a surround sound experience. Though their current applications are mainly limited to music and entertainment.</p>
+                                            </div>
+                                            <div class="tech-research-card">
+                                                <h4>Engaging visually impaired at the venue</h4>
+                                                <div class="tech-research-image">
+                                                    <img src="../images/projects/wtbh-tech-3.jpg" alt="Samsung IrisVision, Foot braille.">
+                                                </div>
+                                                <p class="tech-research-desc">Samsung and IrisVision have collaborated on a headset that records video and replays a magnified version helping legally blind fans experience the match. Foot braille uses haptic technology and tactile graphics to extend fan engagement for football.</p>
+                                            </div>
+                                            <div class="tech-research-card">
+                                                <h4>Machine Learning and IoT</h4>
+                                                <div class="tech-research-image">
+                                                    <img src="../images/projects/wtbh-tech-4.jpg" alt="Deep learning player tracking.">
+                                                </div>
+                                                <p class="tech-research-desc">Deep learning has been used to track player movement across the court to identify defense and offense strategies.</p>
+                                            </div>
+                                        </div>
+                                        <div class="what-label">Accessibility Research</div>
+                                        <div class="accessibility-research-grid">
+                                            <div class="accessibility-research-card">
+                                                <h4>Experiencing the game through sound</h4>
+                                                <div class="accessibility-research-image">
+                                                    <img src="../images/projects/wtbh-accessibility-1.jpg" alt="Sound vibrations and spatial awareness.">
+                                                </div>
+                                                <p class="accessibility-research-desc">The visually impaired can identify the differences in the sound vibrations based on the surface it is reflected off, thus identifying the difference between an empty space vs an obstacle.</p>
+                                            </div>
+                                            <div class="accessibility-research-card">
+                                                <h4>High rate of hearing</h4>
+                                                <div class="accessibility-research-image">
+                                                    <img src="../images/projects/wtbh-accessibility-2.jpg" alt="Speech processing - 25 vs 10 syllables.">
+                                                </div>
+                                                <p class="accessibility-research-desc">The visually impaired, on average, can comprehend speech sped up to 25 syllables per second vs others who can process a maximum of 10 syllables. The cerebral cortex that normally responds to vision responds to speech for the blind.</p>
+                                            </div>
+                                            <div class="accessibility-research-card">
+                                                <h4>Games for the blind</h4>
+                                                <div class="accessibility-research-image">
+                                                    <img src="../images/projects/wtbh-accessibility-3.jpg" alt="Bell Basketball, Beep Baseball.">
+                                                </div>
+                                                <p class="accessibility-research-desc">Bell Basketball—a basketball with embedded audio—enables the visually impaired to play by tracking the position of the ball via its sound. Beep Baseball: the ball and the bases emit a beeping sound acting as beacons to help the visually impaired play.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Ideation &amp; Validation <span class="approach-arrow">→</span> <span class="approach-description">Generating concepts and validating with experts.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Brainstorming &amp; Ideation</div>
+                                        <div class="ideation-intro-row">
+                                            <div class="ideation-intro-content">
+                                                <p style="margin: 0 0 12px 0;">On analyzing the different user requirements—their pains and gains—we thought about ways in which we could provide the court-side experience to everyone by enhancing the audio experience. Technologies like spatial audio and machine learning made it a feasible area to explore.</p>
+                                                <p style="margin: 0 0 8px 0;">From an accessibility standpoint, we looked into two distinct ways to help better experience the game:</p>
+                                                <ul style="margin: 0 0 12px 0; padding-left: 1.25em;">
+                                                    <li>Using Tactile Graphics and Refreshable Braille</li>
+                                                    <li>Spatial Audio</li>
+                                                </ul>
+                                                <p style="margin: 0 0 0 0;">We got both ideas validated by domain experts which helped in narrowing down to the final solution.</p>
+                                            </div>
+                                            <div class="ideation-intro-image">
+                                                <img src="../images/projects/Refreshable-braile.gif" alt="Refreshable Braille display device.">
+                                            </div>
+                                        </div>
+                                        <div class="what-label">SME Evaluations</div>
+                                        <p style="margin: 0 0 12px 0;">The concepts were validated by four accessibility experts:</p>
+                                        <div class="sme-findings-grid">
+                                            <div class="sme-finding-card">
+                                                <h4>Cost of Tactile Graphics</h4>
+                                                <p>"Tactile graphics are very expensive and not very accessible" — Expert user 1</p>
+                                            </div>
+                                            <div class="sme-finding-card">
+                                                <h4>Noise Reduction</h4>
+                                                <p>"Spatial audio will definitely help improve fan experience as long as unwanted noise is filtered properly" — Expert user 3</p>
+                                            </div>
+                                            <div class="sme-finding-card">
+                                                <h4>Complexity of Tactile Graphics</h4>
+                                                <p>"Tactile graphics may not add to the experience. You will need to create codes to differentiate teams/ball and that would involve a learning curve for the visually impaired" — Expert user 2</p>
+                                            </div>
+                                            <div class="sme-finding-card">
+                                                <h4>Innovative Solution</h4>
+                                                <p>"Combining existing technology to improve fan engagement is very innovative" — Expert user 4</p>
+                                            </div>
+                                        </div>
+                                        <div class="what-label">User Study</div>
+                                        <p style="margin: 0 0 8px 0;">To simulate the experience of watching a live game without visual cues, we tested blindfolded participants, asking them to describe the game solely based on what they could hear.</p>
+                                        <div class="user-study-video">
+                                            <iframe src="https://www.youtube.com/embed/kBG-qXBUDzM" title="User study - blindfolded participants describe the game by sound" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                        <p style="margin: 0 0 16px 0; font-size: var(--font-size-sm); color: var(--color-text-muted);">If the video doesn’t play above, <a href="https://youtube.com/shorts/kBG-qXBUDzM?feature=share" target="_blank" rel="noopener noreferrer">watch it on YouTube Shorts</a>.</p>
+                                        <p style="margin: 0 0 4px 0;"><strong>Insights:</strong></p>
+                                        <ul>
+                                            <li>A solid understanding of the game was essential for accurately interpreting what was happening on the court.</li>
+                                            <li>Participants could identify the ball's location on the court and track passes between players.</li>
+                                            <li>Audience and player noise were found to be misleading, making it difficult to draw accurate conclusions about game events.</li>
+                                            <li>Periods of game suspension were confusing, as there were no distinct audio cues to signal these breaks.</li>
+                                        </ul>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Final Solution &amp; Design <span class="approach-arrow">→</span> <span class="approach-description">Creating spatial audio experience with sensor-integrated basketball.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Final Solution</div>
+                                        <p style="margin: 0 0 12px 0;">After consulting with accessibility experts, we focused on <strong>spatial audio</strong> as our solution. This approach not only extends the experience to visually impaired fans but also offers an <strong>affordable option</strong>. Our research showed that the visually impaired can process and identify sound more quickly, supporting our choice.</p>
+                                        <p style="margin: 0 0 20px 0;">We then explored ways to enhance the audio experience, considering options such as strategically placed microphones around the court, embedding sensors in shoes or flooring, or hanging them from the ceiling. Ultimately, we decided to integrate a <strong>sensor inside the basketball for optimal results</strong>.</p>
+                                        <div class="solution-e2e-image">
+                                            <img src="../images/projects/wtbh-solution-e2e.jpg" alt="End-to-end solution - What the ball hears.">
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Business Model Canvas <span class="approach-arrow">→</span> <span class="approach-description">Identifying revenue streams and value proposition.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Business Model Canvas</div>
+                                        <p style="margin: 0 0 12px 0;">We focused on creating a solution that made clear business sense for sports organizations—driving revenue while improving fan engagement and accessibility. To validate this, we developed a Business Model Canvas.</p>
+                                        <p style="margin: 0 0 20px 0;">The model introduced new revenue streams, including premium seating, virtual seats, revenue sharing from headset sales, and app downloads. At the same time, we ensured the experience remained affordable for users by allowing them to access the service through devices they already own.</p>
+                                        <div class="bmc-image">
+                                            <img src="../images/projects/wtbh-bmc.jpg" alt="Business Model Canvas - What the ball hears.">
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Reflections Section -->
+                <section class="project-section" id="project-reflections-section">
+                    <div class="reflections-section">
+                        <h2>Project Reflections</h2>
+                        <div class="reflection-items">
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Expert Validation is Critical for Accessibility Solutions</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Consulting with four accessibility experts helped us understand that tactile graphics are expensive and complex, while spatial audio would be more effective if noise is filtered properly. This validation was crucial for narrowing down to the final solution.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>User Testing Reveals Critical Insights</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Blindfolded user testing revealed that game understanding is essential, ball location is trackable, but audience noise is misleading and game suspension periods are confusing. These insights directly informed design decisions about noise filtering and audio cues.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Combining Existing Technologies Creates Innovation</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>By combining smart basketball sensors, 5G networks, and spatial audio technology, we created an innovative solution that enhances fan experience for 400 million fans while making the sport accessible to 1 million visually impaired fans. This approach demonstrates how existing technologies can be combined to create new value.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Awards Section -->
+                <section class="project-section" id="awards-section">
+                    <div class="awards-section-block">
+                        <h2>Awards</h2>
+                        <div class="awards-grid">
+                            <img src="../images/projects/what-the-ball-hears-award-1.jpg" alt="Award 1">
+                            <img src="../images/projects/what-the-ball-hears-award-2.jpg" alt="Award 2">
+                            <img src="../images/projects/what-the-ball-hears-award-3.jpg" alt="Award 3">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Study Navigation -->
+                <div class="case-study-navigation">
+                    <a href="../index.html#projects" class="nav-link prev">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Back to Projects</span>
+                    </a>
+                    <a href="insightful-ux.html" class="nav-link next">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Next Project</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize reflection accordions - matching design values interaction
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Key Features Figma prototype swap: show prototype through Key Features, Approach, and Impact
+            const keyFeaturesSection = document.getElementById('key-features-section');
+            const approachSection = document.getElementById('approach-section');
+            const impactSection = document.getElementById('impact-section');
+            const leftColumn = document.querySelector('.project-left-column');
+            const figmaPrototype = document.getElementById('key-features-figma');
+
+            if (keyFeaturesSection && approachSection && impactSection && leftColumn && figmaPrototype) {
+                let keyFeaturesVisible = false;
+                let approachVisible = false;
+                let impactVisible = false;
+
+                const updatePrototypeVisibility = () => {
+                    if (keyFeaturesVisible || approachVisible || impactVisible) {
+                        leftColumn.classList.add('show-figma');
+                    } else {
+                        leftColumn.classList.remove('show-figma');
+                    }
+                };
+
+                const keyFeaturesObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        keyFeaturesVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, { threshold: 0.3 });
+
+                const approachObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        approachVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, { threshold: 0.3 });
+
+                const impactObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        impactVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, { threshold: 0.3 });
+
+                keyFeaturesObserver.observe(keyFeaturesSection);
+                approachObserver.observe(approachSection);
+                impactObserver.observe(impactSection);
+            }
+
+            // Approach accordion functionality
+            const approachMethods = document.querySelectorAll('.approach-method');
+            approachMethods.forEach((item) => {
+                const header = item.querySelector('.approach-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const isActive = item.classList.contains('active');
+                        
+                        // Close all items
+                        approachMethods.forEach((otherItem) => {
+                            otherItem.classList.remove('active');
+                        });
+                        
+                        // Toggle current item
+                        if (!isActive) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            const reflectionItems = document.querySelectorAll('.reflection-item');
+            reflectionItems.forEach((item) => {
+                const header = item.querySelector('.reflection-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Close other items
+                        reflectionItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                        // Toggle current item
+                        item.classList.toggle('active');
+                    });
+                    header.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart BundleUp - Project</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .project-page-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        .project-left-column {
+            width: calc(45% - 40px);
+            height: calc(100vh - 40px);
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-left-column img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-left-column .figma-prototype {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .project-left-column.show-figma img {
+            display: none;
+        }
+
+        .project-left-column.show-figma .figma-prototype {
+            display: block;
+        }
+
+        .project-right-column {
+            width: 55%;
+            margin-left: 45%;
+            background: #ffffff;
+            padding: 20px 40px;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .project-back-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 16px;
+            margin-top: 0;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .project-back-link:hover {
+            color: #2d5016;
+        }
+
+        .project-page-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 40px;
+        }
+
+        .project-content-wrapper {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            background: #000000;
+            color: #ffffff;
+            padding: 16px 24px;
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            background: #ffffff;
+            padding: 32px 24px;
+            color: var(--color-heading);
+        }
+
+        /* Context Section with Side-by-Side Layout */
+        .context-section-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .context-text-section {
+            flex: 1.5;
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .context-text-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 20px;
+        }
+
+        .context-text-section p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            margin-bottom: 16px;
+            color: var(--color-heading);
+        }
+
+        .context-text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .context-text-section ul {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            margin: 0 0 16px 1.25em;
+            padding-left: 0.5em;
+            color: var(--color-heading);
+        }
+
+        .context-text-section li {
+            margin-bottom: 8px;
+        }
+
+        .context-text-section li:last-child {
+            margin-bottom: 0;
+        }
+
+        .metadata-sections {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metadata-section {
+            background: #F7FAF8;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .metadata-section h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 12px;
+        }
+
+        .metadata-section p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin: 0;
+        }
+
+        .comic-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            row-gap: 4px;
+            margin: 0;
+        }
+
+        .comic-panel {
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .comic-illustration {
+            width: 100%;
+            min-height: 300px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .comic-illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .problem-question {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-top: 32px;
+            line-height: var(--line-height-base);
+        }
+
+        .problem-quote {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin: 24px 0 32px 0;
+            padding: 0 0 0 20px;
+            border-left: 4px solid #5F7B6C;
+            line-height: var(--line-height-tight);
+            font-style: italic;
+        }
+
+        .problem-challenge {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0 0 32px 0;
+        }
+
+        .problem-perspectives {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .problem-perspective-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .problem-perspective-card-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .problem-perspective-visual {
+            flex: 0 0 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .problem-perspective-illustration {
+            max-width: 200px;
+            max-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-perspective-illustration img {
+            max-width: 100%;
+            max-height: 200px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            image-rendering: auto;
+        }
+
+        .problem-perspective-label {
+            display: inline-block;
+            background: #1a4d2e;
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+        }
+
+        .problem-perspective-quote {
+            flex: 1;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+            text-align: center;
+        }
+
+        .problem-highlight {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .problem-hmw {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .problem-hmw-heading {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #2d5016;
+            margin: 0 0 12px 0;
+        }
+
+        .problem-hmw-question {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* Problem Statement section content background */
+        #problem-statement .section-content {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        #problem-statement .section-content h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 20px;
+        }
+
+        #problem-statement .section-header {
+            display: none;
+        }
+
+        /* Persona Card Styling */
+        .persona-card {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .persona-content {
+            flex: 1;
+        }
+
+        .persona-header {
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .persona-quote {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin: 0;
+        }
+
+        .persona-quote strong {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .persona-image-container {
+            flex: 0 0 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .persona-illustration {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 16px;
+        }
+
+        .persona-illustration img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .persona-tag {
+            background: #1a4d7a;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            text-align: center;
+        }
+
+        /* How might we and Constraints sections */
+        .problem-subsection {
+            margin-top: 32px;
+        }
+
+        .problem-subsection h3 {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .problem-subsection p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin-bottom: 24px;
+        }
+
+        .problem-subsection p strong {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .constraints-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraints-list li {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .constraints-list li:before {
+            content: "•";
+            color: var(--color-text-muted);
+            margin-right: 8px;
+        }
+
+        .constraints-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        .star-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: var(--font-size-lg);
+        }
+
+        /* Impact and Case Study Focus sections styling */
+        .highlighted-section {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .highlighted-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlighted-section .star-icon {
+            color: #5F7B6C;
+            font-size: var(--font-size-xl);
+            display: inline-block;
+        }
+
+        .highlighted-section p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin: 0;
+        }
+
+        /* Impact section (Beachhead Market + Total Addressable Market) */
+        .impact-section-block {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .impact-section-block h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .impact-section-block .star-icon {
+            color: #5F7B6C;
+            font-size: var(--font-size-xl);
+            display: inline-block;
+        }
+
+        .impact-image-wrap {
+            margin-bottom: 28px;
+            max-width: 100%;
+        }
+
+        .impact-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .impact-image-text-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 32px;
+            margin-bottom: 28px;
+        }
+
+        .impact-image-text-row .impact-image-wrap {
+            flex: 0 1 45%;
+            min-width: 280px;
+            margin-bottom: 0;
+        }
+
+        .impact-intro-text {
+            flex: 1 1 45%;
+            min-width: 280px;
+            color: #444;
+            line-height: var(--line-height-base);
+        }
+
+        .impact-intro-text p {
+            margin: 0 0 12px 0;
+        }
+
+        .impact-intro-text p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .impact-intro-text ul {
+            margin: 0 0 12px 0;
+            padding-left: 1.25em;
+        }
+
+        .impact-intro-text li {
+            margin-bottom: 6px;
+        }
+
+        .impact-metrics-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .impact-subsection {
+            margin-bottom: 28px;
+        }
+
+        .impact-subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact-subsection-title {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin: 0 0 16px 0;
+        }
+
+        .impact-stats-row {
+            display: grid;
+            gap: 24px;
+        }
+
+        .impact-stats-three {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .impact-stats-two {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .impact-stat {
+            min-width: 0;
+        }
+
+        .impact-stat-value {
+            display: block;
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin-bottom: 8px;
+        }
+
+        .impact-stat-label {
+            display: block;
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-tight);
+            color: var(--color-text-muted);
+        }
+
+        /* Heuristic Evaluation Comparison */
+        .he-comparison {
+            margin-top: 32px;
+        }
+
+        .he-comparison-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            color: #2d5016;
+            margin-bottom: 32px;
+        }
+
+        .he-comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .he-section {
+            width: 100%;
+        }
+
+        .he-label {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .he-scale-bar {
+            width: 100%;
+            height: 24px;
+            background: linear-gradient(to right, 
+                #E4572E 0%, #E4572E 18%, 
+                transparent 18%, transparent 20%,
+                #F0A800 20%, #F0A800 38%,
+                transparent 38%, transparent 40%,
+                #FFDE00 40%, #FFDE00 58%,
+                transparent 58%, transparent 60%,
+                #9CCC65 60%, #9CCC65 78%,
+                transparent 78%, transparent 80%,
+                #5F9C3E 80%, #5F9C3E 100%);
+            border-radius: 4px;
+            position: relative;
+            flex-shrink: 0;
+            margin-bottom: 8px;
+        }
+
+        .he-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 32px;
+            background: #000000;
+        }
+
+        .he-indicator.before {
+            left: 0%;
+        }
+
+        .he-indicator.after {
+            left: 92%;
+        }
+
+        .he-score {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-heading);
+        }
+
+        /* Approach section styling */
+        .approach-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .approach-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 20px;
+        }
+
+        .approach-intro {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin-bottom: 32px;
+            font-weight: var(--font-weight-normal);
+        }
+
+        .approach-process-diagram {
+            width: 100%;
+            max-width: 900px;
+            margin: 2rem auto;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .approach-process-diagram .process-diagram-row {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            min-width: min-content;
+        }
+        .approach-process-diagram .process-stage {
+            flex: 1;
+            min-width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .approach-process-diagram .process-stage-header {
+            background: #1a4d2e;
+            color: white;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .approach-process-diagram .process-stage-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 8px 6px;
+            background: #fff;
+        }
+        .approach-process-diagram .process-stage-item {
+            background: #e8e8e8;
+            color: #000;
+            font-size: var(--font-size-xs);
+            padding: 8px 10px;
+            border-radius: 16px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .approach-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .approach-analysis {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .approach-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .approach-method {
+            margin-bottom: 0;
+            cursor: pointer;
+            min-width: 0;
+        }
+
+        .approach-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        .approach-header:hover {
+            color: var(--color-heading);
+        }
+
+        .approach-header h3 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin: 0;
+            line-height: var(--line-height-base);
+            flex: 1;
+        }
+
+        .approach-header h3 .approach-arrow {
+            font-weight: var(--font-weight-normal);
+        }
+
+        .approach-header h3 .approach-description {
+            font-weight: var(--font-weight-normal);
+        }
+
+        .approach-arrow {
+            color: var(--color-heading);
+            margin: 0 4px;
+        }
+
+        .approach-chevron {
+            width: 20px;
+            height: 20px;
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .approach-method.active .approach-chevron {
+            transform: rotate(180deg);
+        }
+
+        .approach-header:hover .approach-chevron {
+            color: var(--color-heading);
+        }
+
+        .approach-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+            min-width: 0;
+        }
+
+        .approach-method.active .approach-content {
+            max-height: 2000px;
+            padding: 16px 0;
+        }
+
+        .approach-content .what-label {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: #1a4d2e;
+            margin-bottom: 12px;
+        }
+
+        .env-analysis-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 24px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .env-analysis-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .env-analysis-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .env-analysis-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .env-analysis-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .env-analysis-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.15);
+            background: #fff;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .env-analysis-btn:hover {
+            background: #f0f0f0;
+            color: #1a1a1a;
+        }
+
+        .env-analysis-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .env-analysis-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background: #ccc;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s;
+        }
+
+        .env-analysis-dot.active {
+            background: #1a1a1a;
+        }
+
+        .persona-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 24px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .persona-carousel .persona-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .persona-carousel .persona-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .persona-carousel .persona-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .persona-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .persona-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.15);
+            background: #fff;
+            color: #666;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: background 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .persona-btn:hover {
+            background: #f0f0f0;
+            color: #1a1a1a;
+        }
+
+        .persona-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .persona-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background: #ccc;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s;
+        }
+
+        .persona-dot.active {
+            background: #1a1a1a;
+        }
+
+        .ideation-block {
+            margin-top: 28px;
+        }
+
+        .ideation-block:first-child {
+            margin-top: 0;
+        }
+
+        .ideation-block .what-label {
+            margin-bottom: 12px;
+        }
+
+        .ideation-crazy8-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .ideation-crazy8-text {
+            flex: 1 1 45%;
+            min-width: 260px;
+        }
+
+        .ideation-crazy8-text p {
+            margin: 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .ideation-crazy8-image {
+            flex: 1 1 45%;
+            min-width: 260px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ideation-crazy8-image img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .ideation-image-wrap {
+            width: 100%;
+            min-width: 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ideation-image-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .ideation-final-decision-placeholder {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .ideation-final-decision-placeholder img {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .bmc-image-wrap {
+            margin-top: 20px;
+            margin-bottom: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+            width: 100%;
+            max-width: 100%;
+            line-height: 0;
+        }
+
+        .bmc-image-wrap img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            vertical-align: top;
+            margin-bottom: 0;
+        }
+
+        .builder-dashboard-image-wrap {
+            margin-top: 20px;
+            margin-bottom: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+            width: 100%;
+            max-width: 100%;
+            line-height: 0;
+            background: #ffffff;
+            padding: 20px;
+        }
+
+        .builder-dashboard-image-wrap img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            vertical-align: top;
+            margin-bottom: 0;
+        }
+
+        .homeowner-dashboard-section {
+            margin-top: 0;
+        }
+
+        .homeowner-dashboard-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .homeowner-dashboard-text {
+            flex: 1 1 45%;
+            min-width: 260px;
+        }
+
+        .homeowner-dashboard-text p {
+            margin: 0 0 12px 0;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .homeowner-dashboard-text ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .homeowner-dashboard-text li {
+            margin-bottom: 8px;
+        }
+
+        .homeowner-dashboard-image {
+            flex: 1 1 45%;
+            min-width: 260px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .homeowner-dashboard-image img {
+            width: 55%;
+            max-width: 55%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .tech-findings-summary {
+            margin-top: 28px;
+        }
+
+        .tech-findings-summary .what-label {
+            margin-bottom: 12px;
+        }
+
+        .beachhead-image-wrap {
+            width: 100%;
+            max-width: 100%;
+            margin: 16px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .beachhead-image-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .tech-findings-image-wrap {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .tech-findings-image-wrap img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .approach-content .impact-intro {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+
+        .approach-content .impact-intro .impact-highlight {
+            background-color: #E0FFE0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .approach-content .impact-intro .impact-highlight:hover {
+            text-decoration: underline;
+        }
+
+        .approach-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .approach-content li {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .approach-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--color-heading);
+        }
+
+        .approach-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .approach-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 0;
+            border: none;
+        }
+
+        .approach-method:last-child .approach-divider {
+            display: none;
+        }
+
+        .source-link {
+            font-size: var(--font-size-xs);
+            color: #2d5016;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .source-link a {
+            color: #2d5016;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .outcome-screenshot {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 100%;
+        }
+
+        .outcome-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .outcome-screenshot video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .outcome-screenshot .sl-embed {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .outcome-screenshot iframe.sl-demo {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Impact cards (used in approach accordion) */
+        .impact-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 24px 0;
+        }
+        .impact-card {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .impact-card .impact-value {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: #2d5016;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .impact-card .impact-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-muted);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-tight);
+        }
+
+        /* Outcome section styling */
+        .outcome-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .outcome-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 32px;
+        }
+
+        .outcome-items {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .outcome-item {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .outcome-item h3 {
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 12px;
+        }
+
+        .outcome-item p {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-heading);
+            margin: 0 0 20px 0;
+        }
+
+        .outcome-item p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .outcome-disclaimer {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text-muted);
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding: 0;
+        }
+
+        /* Key Features: Solution section */
+        .solution-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .solution-section h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 24px;
+        }
+
+        .solution-intro {
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0 0 28px 0;
+        }
+
+        .solution-image-wrap {
+            margin-bottom: 28px;
+            max-width: 100%;
+        }
+
+        .solution-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .solution-dashboard-note {
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            border-left: 4px solid #2d5016;
+        }
+
+        .solution-dashboard-note p {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .solution-whats-in-it-heading {
+            font-size: var(--font-size-md);
+            font-weight: 700;
+            color: #1a4d2e;
+            margin: 0 0 20px 0;
+        }
+
+        .solution-party-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .solution-party-card {
+            padding: 24px;
+            min-width: 0;
+        }
+
+        .solution-party-card:nth-child(2),
+        .solution-party-card:nth-child(3) {
+            border-left: 1px solid #d0d0d0;
+        }
+
+        .solution-party-title {
+            font-size: var(--font-size-base);
+            font-weight: 700;
+            color: #2d5016;
+            margin: 0 0 12px 0;
+        }
+
+        .solution-party-card p {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        .outcome-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .outcome-image-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .outcome-image-label {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--color-heading);
+            margin-bottom: 8px;
+        }
+
+        .outcome-image-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .outcome-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .outcome-item:last-child .outcome-images {
+            display: block;
+            grid-template-columns: 1fr;
+        }
+
+        .outcome-item:last-child .outcome-image-container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-quote {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-medium);
+            font-style: italic;
+            color: var(--color-heading);
+            margin: 20px 0;
+            padding: 0;
+            line-height: var(--line-height-tight);
+        }
+
+        /* Project Reflections section styling - matching sections above */
+        .reflections-section {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .reflections-section h2 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-heading);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .reflection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .reflection-item {
+            margin-bottom: 0;
+        }
+
+        .reflection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .reflection-header h3 {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-heading);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-chevron {
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .reflection-item.active .reflection-chevron {
+            transform: rotate(180deg);
+        }
+
+        .reflection-header:hover .reflection-chevron {
+            color: var(--color-heading);
+        }
+
+        .reflection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .reflection-item.active .reflection-content {
+            max-height: 500px;
+            padding: 16px 0;
+        }
+
+        .reflection-content p {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--color-text-muted);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-content ul {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+            color: var(--color-text-muted);
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .reflection-content li {
+            margin-bottom: 8px;
+        }
+
+        .reflection-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .reflection-divider {
+            height: 1px;
+            background: #e5e5e5;
+            width: 100%;
+        }
+
+        .reflection-item:last-child .reflection-divider {
+            display: none;
+        }
+
+        /* Case Study Navigation */
+        .case-study-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding: 40px 32px;
+            padding-bottom: 80px;
+            border-top: 1px solid #e5e5e5;
+            background: #F7FAF8;
+            border-radius: 12px;
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--color-heading);
+            text-decoration: none;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #2d5016;
+        }
+
+        .nav-link.prev {
+            flex-direction: row;
+        }
+
+        .nav-link.next {
+            flex-direction: row-reverse;
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-page-container">
+        <!-- Left Column: Project Image or Figma Prototype when in Key Features / Approach -->
+        <div class="project-left-column" id="project-left-column">
+            <img src="../images/projects/project-2.jpg" alt="Smart BundleUp - Schneider Electric">
+            <iframe id="key-features-figma" class="figma-prototype" title="Figma prototype - Smart BundleUp" src="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2F0tg4JhNTsDFvwfBOzTIZ7J%2FPortfolio-2023%3Fpage-id%3D72%253A753%26node-id%3D72-872%26viewport%3D393%252C238%252C0.05%26t%3DWFb1Fu8uegSNiBi7-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D72%253A754%26show-proto-sidebar%3D1" allowfullscreen></iframe>
+        </div>
+
+        <!-- Right Column: Project Content -->
+        <div class="project-right-column">
+            <a href="../index.html#projects" class="project-back-link">← Back to Projects</a>
+            <h1 class="project-page-title">Smart BundleUp</h1>
+            <div class="project-content-wrapper">
+                <!-- Context and Metadata Sections (Side by Side) -->
+                <div class="context-section-wrapper">
+                    <!-- Left Column: Context -->
+                    <div class="context-text-section">
+                        <h2>Context</h2>
+                        <p>Schneider Electric's smart and sustainable home products were built for the future—but adoption depended on builders who were deeply rooted in traditional, experience-driven practices.</p>
+                        <p>While business partners saw smart technology as a strategic differentiator, many builders viewed it as unnecessary change. Not because it slowed them down or didn't work, but because it didn't yet feel like a natural part of how homes were built. The result was a disconnect:</p>
+                        <ul>
+                            <li>Business teams pushed for innovation and market entry</li>
+                            <li>Builders prioritized familiarity, predictability, and proven workflows</li>
+                        </ul>
+                        <p>Without addressing this gap, even strong products risked being underutilized or ignored.</p>
+                    </div>
+
+                    <!-- Right Column: Metadata Sections -->
+                    <div class="metadata-sections">
+                        <div class="metadata-section">
+                            <h3>Timeline</h3>
+                            <p>Oct 2021–Dec 2021</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Domain</h3>
+                            <p>Go-to-market, Product Strategy, Multi Persona UX Design</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Role</h3>
+                            <p>Market Research, Business Model, UX Design</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Team size</h3>
+                            <p>4</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem Statement Section -->
+                <section class="project-section" id="problem-statement">
+                    <div class="section-content">
+                        <h2>Problem Statement</h2>
+                        <p class="problem-challenge">The primary challenge was bridging the gap between Schneider Electric's market expansion goals and the practical, experience-driven priorities of new home builders, ensuring adoption felt beneficial rather than burdensome.</p>
+                        
+                        <div class="problem-perspectives">
+                            <div class="problem-perspective-card">
+                                <div class="problem-perspective-visual">
+                                    <div class="problem-perspective-illustration" aria-hidden="true">
+                                        <img src="../images/projects/smart-bundleup-business-persona.jpg" alt="Business professional with document showing charts and graphs.">
+                                    </div>
+                                    <span class="problem-perspective-label">Business Partner</span>
+                                </div>
+                                <p class="problem-perspective-quote">"Smart and sustainable homes are where the market is heading. If we don't <strong class="problem-highlight">convince the builders</strong> to adopt our technology now, we risk losing an entire generation of homeowners to our competitors."</p>
+                            </div>
+                            <div class="problem-perspective-card">
+                                <p class="problem-perspective-quote">"I've been building homes the same way for years—and my clients are happy. I'm not against new tech, I just don't <strong class="problem-highlight">see why I need to change</strong> what already works."</p>
+                                <div class="problem-perspective-visual">
+                                    <div class="problem-perspective-illustration" aria-hidden="true">
+                                        <img src="../images/projects/smart-bundleup-builder-persona.jpg" alt="Builder in hard hat and safety vest holding blueprint of a house.">
+                                    </div>
+                                    <span class="problem-perspective-label">New Home Builder</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-hmw">
+                            <h3 class="problem-hmw-heading">How might we</h3>
+                            <p class="problem-hmw-question">How might Schneider Electric enter the smart and sustainable home market by designing an experience that fits naturally into new home builders' existing workflows—creating value for both the business and its partners without introducing disruption?</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Key Features: Solution Section -->
+                <section class="project-section" id="key-features-section">
+                    <div class="solution-section">
+                        <h2>Key Features: Solution</h2>
+                        <p class="solution-intro">The project positioned smart energy solutions as an extension of what builders already do, not a departure from it. Our solution created a smart bundle of products and a business plan that mutually benefitted all parties involved.</p>
+                        
+                        <div class="solution-image-wrap">
+                            <!-- Replace the src below with your solution image. Save your image as: images/projects/smart-bundleup-solution.png (or .jpg) -->
+                            <img src="../images/projects/smart-bundleup-solution.jpg" alt="Smart bundle of products: Schneider Electric Starter and Expert bundles, Subscription Model powered by Samsung, and energy usage dashboard.">
+                        </div>
+                        
+                        <h3 class="solution-whats-in-it-heading">What's in it for each party?</h3>
+                        <div class="solution-party-cards">
+                            <div class="solution-party-card">
+                                <h4 class="solution-party-title">Schneider Electric</h4>
+                                <p>Penetration into the smart home market and larger targetable market through production builders.</p>
+                            </div>
+                            <div class="solution-party-card">
+                                <h4 class="solution-party-title">Samsung SmartThings</h4>
+                                <p>More and guaranteed sales due to tie up with the production builders.</p>
+                            </div>
+                            <div class="solution-party-card">
+                                <h4 class="solution-party-title">Production builders</h4>
+                                <p>Subsidized pricing—hello profits. Additionally, tax incentives as homeowners start giving back to the solar grid.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Impact Section -->
+                <section class="project-section" id="impact-section">
+                    <div class="impact-section-block">
+                        <h2><span class="star-icon">✩</span> Impact</h2>
+                        <div class="impact-image-text-row">
+                            <div class="impact-image-wrap">
+                                <!-- Save your impact image as: images/projects/smart-bundleup-impact.jpg (or .png) -->
+                                <img src="../images/projects/smart-bundleup-impact.jpg" alt="Impact overview or visual for Smart BundleUp.">
+                            </div>
+                            <div class="impact-intro-text">
+                                <p>Our target future market is as shown to the left for the following reasons:</p>
+                                <ul>
+                                    <li>Ample solar energy</li>
+                                    <li>High utility rates</li>
+                                    <li>Need for energy storage &amp; savings</li>
+                                </ul>
+                                <p>These regions also have a high population for our target age group of 25–45. The total revenue projected for the final target market is as shown below.</p>
+                            </div>
+                        </div>
+                        <div class="impact-subsection">
+                            <h3 class="impact-subsection-title">Beachhead Market</h3>
+                            <div class="impact-metrics-box">
+                                <div class="impact-stats-row impact-stats-three">
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">22,850</span>
+                                        <span class="impact-stat-label">Houses with construction permits in Southern California (beachhead market)</span>
+                                    </div>
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">100</span>
+                                        <span class="impact-stat-label">Houses on average in a community</span>
+                                    </div>
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">$40,000</span>
+                                        <span class="impact-stat-label">Revenue generated in one community at subsidized cost</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="impact-subsection">
+                            <h3 class="impact-subsection-title">Total Addressable Market</h3>
+                            <div class="impact-metrics-box">
+                                <div class="impact-stats-row impact-stats-two">
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">293,090</span>
+                                        <span class="impact-stat-label">Households with construction permits in 2020 in targeted states</span>
+                                    </div>
+                                    <div class="impact-stat">
+                                        <span class="impact-stat-value">117 Million USD</span>
+                                        <span class="impact-stat-label">Revenue projected selling Schneider products at subsidized cost of $400</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Approach Section -->
+                <section class="project-section" id="approach-section">
+                    <div class="approach-section">
+                        <h2>Approach</h2>
+                        <p class="approach-intro">These actions reflect strategic decisions and design choices grounded in research, not just task lists.</p>
+                        
+                        <div class="approach-process-diagram" role="img" aria-label="Process diagram: Market Research, User Research, Ideation, Service Design">
+                            <div class="process-diagram-row">
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Market Research</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Key Trends</span>
+                                        <span class="process-stage-item">Market Forces</span>
+                                        <span class="process-stage-item">Industry Forces</span>
+                                        <span class="process-stage-item">Macro-economic Forces</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">User Research</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">User Interview</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Ideation</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Crazy 8</span>
+                                    </div>
+                                </div>
+                                <div class="process-stage">
+                                    <div class="process-stage-header">Service Design</div>
+                                    <div class="process-stage-items">
+                                        <span class="process-stage-item">Business Model Canvas</span>
+                                        <span class="process-stage-item">Prototype</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="approach-content-wrapper">
+                            <div class="approach-items">
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Deep Market &amp; User Research <span class="approach-arrow">→</span> <span class="approach-description">To build a solution anchored in real trends.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Environment Analysis</div>
+                                        <p>The problem statement was broken down into three key aspects: Business, Customer, and Technology. Environmental Analysis was identified as the most effective tool to understand these domains, helping to identify market forces, industry dynamics, macro-economic trends, and key developments in the smart and sustainable home market.</p>
+                                        
+                                        <div class="env-analysis-carousel">
+                                            <div class="env-analysis-track">
+                                                <div class="env-analysis-slide"><img src="../images/projects/smart-bundleup-env-1.jpg" alt="Environment analysis visual 1"></div>
+                                                <div class="env-analysis-slide"><img src="../images/projects/smart-bundleup-env-2.jpg" alt="Environment analysis visual 2"></div>
+                                                <div class="env-analysis-slide"><img src="../images/projects/smart-bundleup-env-3.jpg" alt="Environment analysis visual 3"></div>
+                                                <div class="env-analysis-slide"><img src="../images/projects/smart-bundleup-env-4.jpg" alt="Environment analysis visual 4"></div>
+                                            </div>
+                                            <div class="env-analysis-controls">
+                                                <button type="button" class="env-analysis-btn env-analysis-prev" aria-label="Previous slide">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                                                </button>
+                                                <div class="env-analysis-dots">
+                                                    <button type="button" class="env-analysis-dot active" aria-label="Slide 1" data-index="0"></button>
+                                                    <button type="button" class="env-analysis-dot" aria-label="Slide 2" data-index="1"></button>
+                                                    <button type="button" class="env-analysis-dot" aria-label="Slide 3" data-index="2"></button>
+                                                    <button type="button" class="env-analysis-dot" aria-label="Slide 4" data-index="3"></button>
+                                                </div>
+                                                <button type="button" class="env-analysis-btn env-analysis-next" aria-label="Next slide">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </br>
+                                        <div class="tech-findings-summary">
+                                            <div class="what-label">Technology Research</div>
+                                            <p>Technological research was crucial for developing user-centric, implementable design solutions, while also providing insights into the type of data being collected and displayed by companies in the smart home sector. The technology research focused on:</p>
+                                        <br></br>
+                                            <ul>
+                                                <li>Understanding Smart Hubs and Data Sources</li>
+                                                <li>Analyzing trends shown in competitor products</li>
+                                            </ul>
+                                            <br></br>
+                                            <div class="tech-findings-image-wrap">
+                                                <!-- Replace with your tech findings summary image: images/projects/smart-bundleup-tech-summary.jpg -->
+                                                <img src="../images/projects/smart-bundleup-tech-summary.jpg" alt="Summary of technology research findings.">
+                                            </div>
+                                            <p class="impact-intro">
+                                                <a href="../images/projects/TechnicalReport-compressed.pdf" class="impact-highlight" target="_blank" rel="noopener noreferrer">View full report</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Identify Beachhead Market <span class="approach-arrow">→</span> <span class="approach-description">To identify segments that had the motivations and economic conditions that supported Schneider's goals.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Beachhead Market</div>
+                                        <p>Beachhead market was determined by considering the target user group, inclination towards sustainable power consumption, and mandate towards installing solar panels in newly built homes.</p>
+                                        <div class="beachhead-image-wrap">
+                                            <img src="../images/projects/beachhead.jpg" alt="Beachhead market overview.">
+                                        </div>
+                                        <p>Through our research we narrowed down on the <strong>age group 25 to 44</strong> due to higher inclination towards smart homes. We identified <strong>Southern California</strong> for the beachhead market due to the high population of our target age group and <strong>Title 24 Compliance</strong>, which mandates solar panels.</p>
+                                        <div class="impact-cards" style="margin-top: 16px;">
+                                            <div class="impact-card">
+                                                <span class="impact-value">22,850</span>
+                                                <span class="impact-label">Houses with construction permits in Southern California (beachhead market)</span>
+                                            </div>
+                                            <div class="impact-card">
+                                                <span class="impact-value">100</span>
+                                                <span class="impact-label">Houses on average in a community</span>
+                                            </div>
+                                            <div class="impact-card">
+                                                <span class="impact-value">$40,000</span>
+                                                <span class="impact-label">Revenue generated in one community at subsidized cost of $400</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>User Interviews and Personas <span class="approach-arrow">→</span> <span class="approach-description">To gather insights and build personas to direct the team in making informed design choices.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">User Interviews</div>
+                                        <p>New homeowners were identified as a key stakeholder alongside builders, as homeowner satisfaction directly influenced builder adoption. Semi-structured interviews with both groups were conducted, and insights were synthesized into personas.</p>
+                                        <div class="persona-carousel">
+                                            <div class="persona-track">
+                                                <div class="persona-slide"><img src="../images/projects/smart-bundleup-persona-1.jpg" alt="Persona 1"></div>
+                                                <div class="persona-slide"><img src="../images/projects/smart-bundleup-persona-2.jpg" alt="Persona 2"></div>
+                                            </div>
+                                            <div class="persona-controls">
+                                                <button type="button" class="persona-btn persona-prev" aria-label="Previous slide">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                                                </button>
+                                                <div class="persona-dots">
+                                                    <button type="button" class="persona-dot active" aria-label="Slide 1" data-index="0"></button>
+                                                    <button type="button" class="persona-dot" aria-label="Slide 2" data-index="1"></button>
+                                                </div>
+                                                <button type="button" class="persona-btn persona-next" aria-label="Next slide">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Ideation &amp; Final Recommendations <span class="approach-arrow">→</span> <span class="approach-description">Define final go-to-market strategy with both business and user impact in view.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="ideation-block">
+                                            <div class="what-label">Crazy 8 Ideation</div>
+                                            <div class="ideation-crazy8-row">
+                                                <div class="ideation-crazy8-text">
+                                                    <p>Based on insights from discovery, the team conducted a Crazy 8s ideation session, where each member rapidly generated solution concepts. Ideas were then reviewed and voted on to converge on a clear design direction.</p>
+                                                </div>
+                                                <div class="ideation-crazy8-image">
+                                                    <img src="../images/projects/smart-bundleup-ideation-crazy8.jpg" alt="Crazy 8 ideation whiteboard with sticky notes.">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ideation-block">
+                                            <div class="what-label">Final Decision</div>
+                                            <p>The team recommended partnering with production builders as the primary go-to-market strategy due to its scalability and alignment with builder incentives.</p>
+                                            <p>To further strengthen adoption and reduce friction, the final solution combined this approach with a strategic collaboration with Samsung, leveraging:</p>
+                                            <ul>
+                                                <li>Samsung's established presence in the smart home ecosystem</li>
+                                                <li>Production builders' ability to scale adoption at build time</li>
+                                                <li>A subscription-based model that created long-term value for both Schneider Electric and builders</li>
+                                            </ul>
+                                            <div class="ideation-final-decision-placeholder">
+                                                <!-- Upload your Final Decision visual: images/projects/smart-bundleup-ideation-final-decision.jpg -->
+                                                <img src="../images/projects/smart-bundleup-ideation-final-decision.jpg" alt="Final decision visual.">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>UX Solution Concepts <span class="approach-arrow">→</span> <span class="approach-description">To visualize strategic value for each user group and craft business plan.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">Business Model Canvas</div>
+                                        <p>The information on the final customer segment and the different activities required to provide valuable services to the customer were documented with the help of the Business Model Canvas.</p>
+                                        <div class="bmc-image-wrap">
+                                            <img src="../images/projects/bmc.jpg" alt="Business Model Canvas.">
+                                        </div>
+                                        <div class="what-label" style="margin-top: 28px;">New Home Builder Dashboard</div>
+                                        <ul>
+                                            <li>Incentivizing the new home builder to invest in smart home technology package at no cost to company</li>
+                                            <li>Easy access to maintenance contractors to ensure timely services to homeowners</li>
+                                            <li>Tracking environmental impact to help with marketing of home builder services</li>
+                                            <li>Customer growth to view impact of new system on homeowner satisfaction in their communities</li>
+                                        </ul>
+                                        <div class="builder-dashboard-image-wrap">
+                                            <img src="../images/projects/new-builder-dashboard.png" alt="New Home Builder Dashboard.">
+                                        </div>
+                                        <div class="homeowner-dashboard-section">
+                                            <div class="what-label" style="margin-top: 28px;">End User Dashboard</div>
+                                            <div class="homeowner-dashboard-row">
+                                                <div class="homeowner-dashboard-text">
+                                                    <p>A mobile interface for homeowners to increase adoption:</p>
+                                                    <ul>
+                                                        <li>Live tracking of current usage and backup availability</li>
+                                                        <li>Detailed usage details to find source in case of sudden surge</li>
+                                                        <li>Cost saving and automation capabilities</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="homeowner-dashboard-image">
+                                                    <img src="../images/projects/homeowner-dashboard.png" alt="End User / Homeowner Dashboard.">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Reflections Section -->
+                <section class="project-section" id="project-reflections-section">
+                    <div class="reflections-section">
+                        <h2>Project Reflections</h2>
+                        <div class="reflection-items">
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>UX Can Be a Go-to-Market Lever</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>This project reinforced that UX is not limited to interface design. Some of the most impactful decisions were about who we designed for and when adoption happens, not how screens look. By focusing on builders and installers—before homeowners ever interact with the product—we positioned UX as a driver of market entry, not just usability.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>People adopt products when incentives align, not when features impress.</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Smart and sustainable technology alone wasn't enough to drive adoption. Builders weren't resistant to innovation—they were comfortable with proven practices. Adoption depended on aligning incentives so the solution felt beneficial without requiring behavioral change.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Ecosystem design is about trade-offs, not perfect experiences.</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>This work challenged the idea of a single primary user. Builders, business stakeholders, and homeowners all influenced success at different stages. Designing across this ecosystem required balancing competing needs without optimizing exclusively for any one group.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>The fastest way to drive change is to hide it inside familiarity.</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>One of the biggest insights was that innovation is easier to adopt when it feels familiar. Leveraging existing smart-home platforms and builder workflows reduced friction far more effectively than introducing something entirely new.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Study Navigation -->
+                <div class="case-study-navigation">
+                    <a href="../index.html#projects" class="nav-link prev">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Back to Projects</span>
+                    </a>
+                    <a href="what-the-ball-hears.html" class="nav-link next">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Next Project</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize reflection accordions - matching design values interaction
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Key Features Figma prototype swap: show prototype through Key Features, Approach, and Impact
+            const keyFeaturesSection = document.getElementById('key-features-section');
+            const approachSection = document.getElementById('approach-section');
+            const impactSection = document.getElementById('impact-section');
+            const leftColumn = document.querySelector('.project-left-column');
+            const figmaPrototype = document.getElementById('key-features-figma');
+
+            if (keyFeaturesSection && approachSection && impactSection && leftColumn && figmaPrototype) {
+                // Show Figma prototype on page load
+                leftColumn.classList.add('show-figma');
+
+                // Track visibility of Key Features, Approach, and Impact (viewport-based)
+                let keyFeaturesVisible = false;
+                let approachVisible = false;
+                let impactVisible = false;
+
+                const updatePrototypeVisibility = () => {
+                    if (keyFeaturesVisible || approachVisible || impactVisible) {
+                        leftColumn.classList.add('show-figma');
+                    } else {
+                        leftColumn.classList.remove('show-figma');
+                    }
+                };
+
+                // Intersection Observer for Key Features section (viewport, threshold 0.3)
+                const keyFeaturesObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        keyFeaturesVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, {
+                    threshold: 0.3
+                });
+
+                // Intersection Observer for Approach section (viewport, threshold 0.3)
+                const approachObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        approachVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, {
+                    threshold: 0.3
+                });
+
+                // Intersection Observer for Impact section (viewport, threshold 0.3)
+                const impactObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        impactVisible = entry.isIntersecting;
+                        updatePrototypeVisibility();
+                    });
+                }, {
+                    threshold: 0.3
+                });
+
+                keyFeaturesObserver.observe(keyFeaturesSection);
+                approachObserver.observe(approachSection);
+                impactObserver.observe(impactSection);
+            }
+
+            // Environment Analysis carousel (4 slides, prev/next + dots)
+            const carousel = document.querySelector('.env-analysis-carousel');
+            if (carousel) {
+                const track = carousel.querySelector('.env-analysis-track');
+                const slides = carousel.querySelectorAll('.env-analysis-slide');
+                const prevBtn = carousel.querySelector('.env-analysis-prev');
+                const nextBtn = carousel.querySelector('.env-analysis-next');
+                const dots = carousel.querySelectorAll('.env-analysis-dot');
+                const total = slides.length;
+                let currentIndex = 0;
+
+                function goTo(index) {
+                    currentIndex = (index + total) % total;
+                    if (track) track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+                    dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+                }
+
+                if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+                if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+                dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+            }
+
+            // Persona carousel (2 slides, prev/next + dots) - User Interviews tab
+            document.querySelectorAll('.persona-carousel').forEach((carousel) => {
+                const track = carousel.querySelector('.persona-track');
+                const slides = carousel.querySelectorAll('.persona-slide');
+                const prevBtn = carousel.querySelector('.persona-prev');
+                const nextBtn = carousel.querySelector('.persona-next');
+                const dots = carousel.querySelectorAll('.persona-dot');
+                const total = slides.length;
+                let currentIndex = 0;
+
+                function goTo(index) {
+                    currentIndex = (index + total) % total;
+                    if (track) track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+                    dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+                }
+
+                if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+                if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+                dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+            });
+
+            // Approach accordion functionality
+            const approachMethods = document.querySelectorAll('.approach-method');
+            approachMethods.forEach((item) => {
+                const header = item.querySelector('.approach-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const isActive = item.classList.contains('active');
+                        
+                        // Close all items
+                        approachMethods.forEach((otherItem) => {
+                            otherItem.classList.remove('active');
+                        });
+                        
+                        // Toggle current item
+                        if (!isActive) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            const reflectionItems = document.querySelectorAll('.reflection-item');
+            reflectionItems.forEach((item) => {
+                const header = item.querySelector('.reflection-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Close other items
+                        reflectionItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                        // Toggle current item
+                        item.classList.toggle('active');
+                    });
+                    header.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

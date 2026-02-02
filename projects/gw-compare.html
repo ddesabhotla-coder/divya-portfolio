@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GW Compare: Platform Modernization - Project</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .project-page-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        .project-left-column {
+            width: calc(45% - 40px);
+            height: calc(100vh - 40px);
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-left-column img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-right-column {
+            width: 55%;
+            margin-left: 45%;
+            background: #ffffff;
+            padding: 20px 40px;
+            padding-top: 60px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-text);
+        }
+
+        .project-back-link {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            margin-top: 0;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .project-back-link:hover {
+            color: #2d5016;
+        }
+
+        .project-page-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 40px;
+        }
+
+        .project-content-wrapper {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .project-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            background: #000000;
+            color: #ffffff;
+            padding: 16px 24px;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            background: #ffffff;
+            padding: 32px 24px;
+            color: #000000;
+        }
+
+        /* Context Section with Side-by-Side Layout */
+        .context-section-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .context-text-section {
+            flex: 1.5;
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        .context-text-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .context-text-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: #000000;
+        }
+
+        .context-text-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .metadata-sections {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .metadata-section {
+            background: #F7FAF8;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .metadata-section h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .metadata-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        .comic-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            row-gap: 4px;
+            margin: 0;
+        }
+
+        .comic-panel {
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .comic-illustration {
+            width: 100%;
+            min-height: 300px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .comic-illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .problem-question {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-top: 32px;
+            line-height: 1.6;
+        }
+
+        /* Problem Statement section content background */
+        #problem-statement .section-content {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+        }
+
+        #problem-statement .section-content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        #problem-statement .section-header {
+            display: none;
+        }
+
+        /* Persona Card Styling */
+        .persona-card {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .persona-content {
+            flex: 1;
+        }
+
+        .persona-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .persona-quote {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        .persona-quote strong {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .persona-image-container {
+            flex: 0 0 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .persona-illustration {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 16px;
+        }
+
+        .persona-illustration img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .persona-tag {
+            background: #1a4d7a;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* How might we and Constraints sections */
+        .problem-subsection {
+            margin-top: 32px;
+        }
+
+        .problem-subsection h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .problem-subsection p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .problem-subsection p strong {
+            color: #2d5016;
+            font-weight: 600;
+        }
+
+        .constraints-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraints-list li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .constraints-list li:before {
+            content: "•";
+            color: var(--color-text-muted);
+            margin-right: 8px;
+        }
+
+        .constraints-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            font-weight: 600;
+        }
+
+        .star-icon {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* Impact and Case Study Focus sections styling */
+        .highlighted-section {
+            background: #F7FAF8;
+            border-left: 2px solid #5F7B6C;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .highlighted-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlighted-section .star-icon {
+            color: #5F7B6C;
+            font-size: 24px;
+            display: inline-block;
+        }
+
+        .highlighted-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* Heuristic Evaluation Comparison */
+        .he-comparison {
+            margin-top: 32px;
+        }
+
+        .he-comparison-title {
+            font-size: 16px;
+            font-weight: 400;
+            color: #2d5016;
+            margin-bottom: 32px;
+        }
+
+        .he-comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .he-section {
+            width: 100%;
+        }
+
+        .he-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 12px;
+        }
+
+        .he-scale-bar {
+            width: 100%;
+            height: 24px;
+            background: linear-gradient(to right, 
+                #E4572E 0%, #E4572E 18%, 
+                transparent 18%, transparent 20%,
+                #F0A800 20%, #F0A800 38%,
+                transparent 38%, transparent 40%,
+                #FFDE00 40%, #FFDE00 58%,
+                transparent 58%, transparent 60%,
+                #9CCC65 60%, #9CCC65 78%,
+                transparent 78%, transparent 80%,
+                #5F9C3E 80%, #5F9C3E 100%);
+            border-radius: 4px;
+            position: relative;
+            flex-shrink: 0;
+            margin-bottom: 8px;
+        }
+
+        .he-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 32px;
+            background: #000000;
+        }
+
+        .he-indicator.before {
+            left: 0%;
+        }
+
+        .he-indicator.after {
+            left: 92%;
+        }
+
+        .he-score {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .constraint-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .constraint-list li {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+
+        .constraint-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Constraint section styling */
+        .constraint-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .constraint-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .constraint-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 24px;
+        }
+
+        .constraint-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .constraint-section strong {
+            font-weight: 600;
+        }
+
+        /* Approach section styling */
+        .approach-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .approach-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        .approach-intro {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .approach-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .approach-analysis {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .approach-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .approach-method {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .approach-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        .approach-header:hover {
+            color: #1a1a1a;
+        }
+
+        .approach-header h3 {
+            font-family: var(--font-family);
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .approach-header h3 .approach-arrow {
+            font-weight: 400;
+        }
+
+        .approach-header h3 .approach-description {
+            font-weight: 400;
+        }
+
+        .approach-arrow {
+            color: #000000;
+            margin: 0 4px;
+        }
+
+        .approach-chevron {
+            width: 20px;
+            height: 20px;
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .approach-method.active .approach-chevron {
+            transform: rotate(180deg);
+        }
+
+        .approach-header:hover .approach-chevron {
+            color: #1a1a1a;
+        }
+
+        .approach-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .approach-method.active .approach-content {
+            max-height: 1000px;
+            padding: 16px 0;
+        }
+
+        .approach-content .what-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .approach-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .approach-content li {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .approach-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #000000;
+        }
+
+        .approach-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .approach-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 0;
+            border: none;
+        }
+
+        .approach-method:last-child .approach-divider {
+            display: none;
+        }
+
+
+
+        .source-link {
+            font-size: 12px;
+            color: #2d5016;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .source-link a {
+            color: #2d5016;
+            text-decoration: none;
+        }
+
+        .source-link a:hover {
+            text-decoration: underline;
+        }
+
+        .outcome-screenshot {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            width: 100%;
+        }
+
+        .outcome-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .outcome-screenshot video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .outcome-screenshot .sl-embed {
+            width: 100% !important;
+            max-width: 100%;
+        }
+
+        .outcome-screenshot iframe.sl-demo {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Outcome section styling */
+        .outcome-section {
+            background: #F7FAF8;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 80px;
+        }
+
+        .outcome-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 32px;
+        }
+
+        .outcome-items {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .outcome-item {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .outcome-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+        }
+
+        .outcome-item p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000;
+            margin: 0 0 20px 0;
+        }
+
+        .outcome-item p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .outcome-disclaimer {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 24px;
+            padding: 0;
+        }
+
+        .outcome-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .outcome-image-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .outcome-image-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .outcome-image-wrapper {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .outcome-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .outcome-item:last-child .outcome-images {
+            display: block;
+            grid-template-columns: 1fr;
+        }
+
+        .outcome-item:last-child .outcome-image-container {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-item:last-child .outcome-image-wrapper img {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .outcome-quote {
+            font-size: 24px;
+            font-weight: 500;
+            font-style: italic;
+            color: #000000;
+            margin: 20px 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        /* Project Reflections section styling - matching sections above */
+        .reflections-section {
+            background: #F7FAF8;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .reflections-section h2 {
+            font-family: var(--font-family);
+            font-size: 24px;
+            font-weight: 600;
+            color: #000000;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .reflection-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .reflection-item {
+            margin-bottom: 0;
+        }
+
+        .reflection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .reflection-header h3 {
+            font-family: var(--font-family);
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-chevron {
+            color: #999;
+            transition: transform 0.3s ease, color 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .reflection-item.active .reflection-chevron {
+            transform: rotate(180deg);
+        }
+
+        .reflection-header:hover .reflection-chevron {
+            color: #1a1a1a;
+        }
+
+        .reflection-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .reflection-item.active .reflection-content {
+            max-height: 500px;
+            padding: 16px 0;
+        }
+
+        .reflection-content p {
+            font-family: var(--font-family);
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .reflection-content ul {
+            font-family: var(--font-family);
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--color-text-muted);
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .reflection-content li {
+            margin-bottom: 8px;
+        }
+
+        .reflection-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .reflection-divider {
+            height: 1px;
+            background: #e5e5e5;
+            width: 100%;
+        }
+
+        .reflection-item:last-child .reflection-divider {
+            display: none;
+        }
+
+        /* Case Study Navigation */
+        .case-study-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding: 40px 32px;
+            padding-bottom: 80px;
+            border-top: 1px solid #e5e5e5;
+            background: #F7FAF8;
+            border-radius: 12px;
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #2d5016;
+        }
+
+        .nav-link.prev {
+            flex-direction: row;
+        }
+
+        .nav-link.next {
+            flex-direction: row-reverse;
+        }
+
+        .nav-link svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-page-container">
+        <!-- Left Column: Project Image -->
+        <div class="project-left-column">
+            <img src="../images/projects/Compare.jpg" alt="GW Compare: Platform Modernization">
+        </div>
+
+        <!-- Right Column: Project Content -->
+        <div class="project-right-column">
+            <a href="../index.html#projects" class="project-back-link">← Back to Projects</a>
+            <h1 class="project-page-title">GW Compare: Platform Modernization</h1>
+            
+            <div class="project-content-wrapper">
+                <!-- Context and Metadata Sections (Side by Side) -->
+                <div class="context-section-wrapper">
+                    <!-- Left Column: Context -->
+                    <div class="context-text-section">
+                        <h2>The Context</h2>
+                        <p>The insurance industry is highly competitive, with carriers constantly balancing growth and risk. To stay profitable, businesses race to write more policies while carefully managing losses and exposure.</p>
+                        <p>Understanding performance in this environment requires more than looking at numbers in isolation. Carriers need to compare outcomes across time—year over year—and against peers to make informed strategic decisions about pricing, underwriting, and portfolio management.</p>
+                        <p>Guidewire's Compare tool was built to support this need, enabling insurers to analyze performance trends and benchmark results in order to better understand their overall financial position.</p>
+                    </div>
+
+                    <!-- Right Column: Metadata Sections -->
+                    <div class="metadata-sections">
+                        <div class="metadata-section">
+                            <h3>Timeline</h3>
+                            <p>Oct 2025 - Nov 2025</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Domain</h3>
+                            <p>Enterprise UX, Analytics, B2B</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Role</h3>
+                            <p>UX Designer, Heuristic Evaluation, Prototyping</p>
+                        </div>
+                        <div class="metadata-section">
+                            <h3>Team</h3>
+                            <p>1 Designers, 4 Developers, 1 Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem Statement Section -->
+                <section class="project-section" id="problem-statement">
+                    <div class="section-content">
+                        <h2>Problem Statement</h2>
+                        <p>The legacy UI stack constrained consistency, slowed feature development, and made it difficult to evolve interaction patterns alongside Guidewire's modern products. Each enhancement required custom solutions, increasing maintenance cost and fragmenting the user experience across the platform.</p>
+                        
+                        <!-- Persona Card -->
+                        <div class="persona-card">
+                            <div class="persona-content">
+                                <div class="persona-header">PERSONA</div>
+                                <p class="persona-quote">"It's frustrating! My leaders want our <strong>performance numbers</strong> compared to last year and competitors, and I can't find anything quickly. I'm going through old PowerPoints, digging up industry reports, searching through archived stuff... This is taking way <strong>longer than it should</strong>."</p>
+                            </div>
+                            <div class="persona-image-container">
+                                <div class="persona-illustration">
+                                    <img src="../images/persona/sarah-business-analyst.jpg" alt="Sarah, Business Analyst">
+                                </div>
+                                <div class="persona-tag">Sarah, Business Analyst</div>
+                            </div>
+                        </div>
+
+                        <!-- How might we and Constraints -->
+                        <div class="problem-subsection">
+                            <h3>How might we...</h3>
+                            <p>Transform Guidewire Compare using <strong>Jutro</strong> such that the most frustrating part of a Sarah's day into a moment of <strong>clarity and confidence</strong>?</p>
+
+                        </div>
+                        
+                    </div>
+                </section>
+
+                <!-- Impact Section -->
+                <section class="project-section">
+                    <div class="highlighted-section">
+                        <h2><span class="star-icon">✩</span> Impact</h2>
+                        
+                        <!-- Heuristic Evaluation Comparison -->
+                        <div class="he-comparison">
+                            <p class="he-comparison-title">Designers conducted Heuristic Evaluation to measure the usability before and after redesign.<br><br></p>
+                            <div class="he-comparison-container">
+                                <div class="he-section">
+                                    <div class="he-label">Before</div>
+                                    <div class="he-scale-bar">
+                                        <div class="he-indicator before"></div>
+                                    </div>
+                                    <div class="he-score">HE score: 0</div>
+                                </div>
+                                <div class="he-section">
+                                    <div class="he-label">After</div>
+                                    <div class="he-scale-bar">
+                                        <div class="he-indicator after"></div>
+                                    </div>
+                                    <div class="he-score">New HE score: 92</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Constraint Section -->
+                <section class="project-section">
+                    <div class="constraint-section">
+                        <h2>Constraint</h2>
+                        <p>Focused on <strong>high-impact improvements</strong> within constrained scope, prioritizing changes that delivered outsized value without disrupting existing workflows or release timelines.</p>
+                        <p><strong>Compressed delivery timelines</strong>, with approximately three weeks of design followed by 2–3 months of development, requiring rapid alignment, decisive trade-offs, and lean iteration.</p>
+                        <p><strong>No direct access to customers or end users</strong>, relying on a single subject-matter expert—who also served as the Product Manager—which required strong judgment, careful assumption testing, and a disciplined approach to decision-making under uncertainty.</p>
+                    </div>
+                </section>
+
+                <!-- Approach Section -->
+                <section class="project-section">
+                    <div class="approach-section">
+                        <h2>Approach</h2>
+                        <p class="approach-intro">Our approach balanced rigor and speed—grounded in heuristics, informed by platform history, and executed through close design–engineering collaboration.</p>
+                        
+                        <div class="approach-content-wrapper">
+                            <div class="approach-items">
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Heuristic Evaluation <span class="approach-arrow">→</span> <span class="approach-description">Established a baseline of usability debt and surfaced quick-win opportunities.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">What we examined</div>
+                                        <ul>
+                                            <li>Empty / low-value landing states</li>
+                                            <li>Hidden actions increasing cognitive load</li>
+                                            <li>Fragmented content blocking insight synthesis</li>
+                                            <li>Visual inconsistency with Guidewire branding</li>
+                                        </ul>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Platform & Historical Insights <span class="approach-arrow">→</span> <span class="approach-description">Grounded decisions in institutional knowledge despite no direct user access.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">What we leveraged</div>
+                                        <ul>
+                                            <li>Prior designer research and audits</li>
+                                            <li>Existing usability feedback and recommendations</li>
+                                            <li>Known pain points across the Live ecosystem</li>
+                                        </ul>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Comparative & Pattern Analysis <span class="approach-arrow">→</span> <span class="approach-description">Reduced fragmentation and enabled scalable, system-level consistency.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">What we aligned</div>
+                                        <ul>
+                                            <li>Reusable interaction patterns across products</li>
+                                            <li>Jutro design system conventions</li>
+                                            <li>Enterprise analytics interaction standards</li>
+                                        </ul>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                                
+                                <div class="approach-method">
+                                    <div class="approach-header">
+                                        <h3>Parallel Design–Development Iteration <span class="approach-arrow">→</span> <span class="approach-description">Faster delivery, fewer handoff gaps, and production-ready outcomes.</span></h3>
+                                        <svg class="approach-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="approach-content">
+                                        <div class="what-label">How we worked</div>
+                                        <ul>
+                                            <li>Designed alongside engineering</li>
+                                            <li>Validated feasibility early</li>
+                                            <li>Iterated quickly under tight timelines</li>
+                                        </ul>
+                                    </div>
+                                    <div class="approach-divider"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Outcome Section -->
+                <section class="project-section">
+                    <div class="outcome-section">
+                        <h2>Outcome</h2>
+                        <p class="outcome-disclaimer">Due to NDA constraints, detailed UI screens are not shown. Visuals are intentionally small or abstracted to illustrate structure and interaction patterns without revealing proprietary information.</p>
+                        <div class="outcome-items">
+                            <div class="outcome-item">
+                                <h3>Experience Outcome 1:</h3>
+                                <p>Sarah has significantly improved her efficiency by being able to swiftly locate, view, delete, and share data. This enhancement enables her to construct and evaluate comparisons with a heightened level of confidence.</p>
+                                <div class="outcome-images">
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">Before</div>
+                                        <img src="../images/outcomes/outcome-1-before.jpg" alt="Before: Complex interface with hidden actions">
+                                    </div>
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">After</div>
+                                        <img src="../images/outcomes/outcome-1-after.jpg" alt="After: Improved interface with clear actions">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="outcome-item">
+                                <h3>Experience Outcome 2:</h3>
+                                <p>Sarah finds the form less overwhelming due to the implementation of progressive disclosure. The clear categorization assists her in making new comparisons more quickly.</p>
+                                <div class="outcome-images">
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">Before</div>
+                                        <img src="../images/outcomes/outcome-2-before.jpg" alt="Before: Complex forms, unclear options, cognitive overload">
+                                    </div>
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">After</div>
+                                        <img src="../images/outcomes/outcome-2-after.jpg" alt="After: Guided workflow, clear categories, intuitive navigation">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="outcome-item">
+                                <h3>Experience Outcome 3:</h3>
+                                <p>Adding functionality to scan across using the highlight and additional filtering mechanism pinned at the top, Sarah can now gain specific insights faster.</p>
+                                <div class="outcome-images">
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">Before</div>
+                                        <img src="../images/outcomes/outcome-3-before.jpg" alt="Before: Hidden Actions, unclear patterns, Hard to Scan">
+                                    </div>
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-label">After</div>
+                                        <img src="../images/outcomes/outcome-3-after.jpg" alt="After: Easy to scan system, clear filters. Easy to perform specific actions">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="outcome-item">
+                                <h3>Experience Outcome 4:</h3>
+                                <p>Hidden Complexity in these design that Sarah will not even notice.</p>
+                                <div class="outcome-images">
+                                    <div class="outcome-image-container">
+                                        <div class="outcome-image-wrapper">
+                                            <img src="../images/outcomes/outcome-4.jpg" alt="Hidden complexity in design">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Reflections Section -->
+                <section class="project-section">
+                    <div class="reflections-section">
+                        <h2>Project Reflections</h2>
+                        <div class="reflection-items">
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Modernization Requires Balancing Innovation with Familiarity</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>While introducing modern patterns improved usability, maintaining familiar workflows was crucial for user acceptance. The challenge was finding the right balance between innovation and familiarity.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Design Systems Accelerate Consistency</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Investing time upfront in building a comprehensive design system paid dividends throughout the project, enabling faster iteration and ensuring visual consistency across all platform updates.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Stakeholder Alignment is Critical</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Regular communication and alignment with product managers, developers, and business stakeholders throughout the design process prevented scope creep and ensured successful implementation.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Certain elements of the design can have a significantly greater impact than expected</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <p>Elements like blank landing screens aren't just confusing—it starts making Sarah lose confidence in her ability to complete the task on time.</p>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                            <div class="reflection-item">
+                                <div class="reflection-header">
+                                    <h3>Comparative analysis may not be beneficial when the use cases are vastly different</h3>
+                                    <svg class="reflection-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="reflection-content">
+                                    <ul>
+                                        <li>The analysis conducted on the current GW products was beneficial as it allowed us to uphold operational efficiency and consistency standards across our entire product range.</li>
+                                        <li>The analysis of comparison tools with significantly varied use cases proved to be ineffective in meeting the requirements of our target audience.</li>
+                                    </ul>
+                                </div>
+                                <div class="reflection-divider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Study Navigation -->
+                <div class="case-study-navigation">
+                    <a href="../index.html#projects" class="nav-link prev">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Back to Projects</span>
+                    </a>
+                    <a href="securita-chatbot.html" class="nav-link next">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Next Project</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize reflection accordions - matching design values interaction
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Approach accordion functionality
+            const approachMethods = document.querySelectorAll('.approach-method');
+            approachMethods.forEach((item) => {
+                const header = item.querySelector('.approach-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const isActive = item.classList.contains('active');
+                        
+                        // Close all items
+                        approachMethods.forEach((otherItem) => {
+                            otherItem.classList.remove('active');
+                        });
+                        
+                        // Toggle current item
+                        if (!isActive) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            const reflectionItems = document.querySelectorAll('.reflection-item');
+            reflectionItems.forEach((item) => {
+                const header = item.querySelector('.reflection-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Close other items
+                        reflectionItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                        // Toggle current item
+                        item.classList.toggle('active');
+                    });
+                    header.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
