@@ -1,4 +1,4 @@
-# Portfolio Website
+# divya-portfolio
 
 A modern, responsive two-column portfolio website with an automatic image slider.
 
